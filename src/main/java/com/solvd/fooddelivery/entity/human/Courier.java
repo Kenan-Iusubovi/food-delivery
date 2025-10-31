@@ -1,12 +1,12 @@
-package com.solvd.domain.human;
+package com.solvd.fooddelivery.entity.human;
 
-import com.solvd.domain.order.Order;
-import com.sun.jdi.connect.Transport;
-import lombok.Data;
+import com.solvd.fooddelivery.entity.order.Order;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,12 +15,12 @@ import java.util.List;
 public class Courier extends Human{
 
     private String licenseNumber;
-    private LocalDateTime workingExperience;
+    private Period workingExperience;
     private List<Order> orders;
 
     public Courier(long id, String firstname, String lastname,
                    String phoneNumber, String email, String licenseNumber,
-                   LocalDateTime workingExperience) {
+                   Period workingExperience) {
         super(id, firstname, lastname, phoneNumber, email);
         this.licenseNumber = licenseNumber;
         this.workingExperience = workingExperience;

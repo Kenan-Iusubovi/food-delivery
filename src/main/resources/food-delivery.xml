@@ -1,0 +1,114 @@
+<foodSpotOwner xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:noNamespaceSchemaLocation="food-delivery.xsd">
+    <businesLicense>BUS-3020666KL</businesLicense>
+    <foodSpots>
+        <foodSpot id="1">
+            <name>McDonald's</name>
+            <address>Washington street 15</address>
+            <phoneNumber>15699302</phoneNumber>
+            <menus>
+                <menu id="1">
+                    <name>burger's</name>
+                    <products>
+                        <product id="1">
+                            <name>Hamburger</name>
+                            <price>2.85</price>
+                            <description>Standard hamburger</description>
+                            <available>true</available>
+                        </product>
+                        <product id="2">
+                            <name>Chis burger</name>
+                            <price>3.25</price>
+                            <description>Hamburger with chis</description>
+                            <available>true</available>
+                        </product>
+                        <product id="3">
+                            <name>Double hamburger</name>
+                            <price>3.30</price>
+                            <description>hamburger with double meet</description>
+                            <available>false</available>
+                        </product>
+                    </products>
+                </menu>
+                <menu id="2">
+                    <name>Drinks</name>
+                    <products>
+                        <product id="4">
+                            <name>Coca cola</name>
+                            <price>2.50</price>
+                            <description>Standard coca cola 0.5 L</description>
+                            <available>true</available>
+                        </product>
+                        <product id="5">
+                            <name>Sprite</name>
+                            <price>2.50</price>
+                            <description>Standard sprite 0.5 L</description>
+                            <available>false</available>
+                        </product>
+                        <product id="6">
+                            <name>Coffee</name>
+                            <price>3.30</price>
+                            <description>Coffee americano 0.33 L</description>
+                            <available>true</available>
+                        </product>
+                    </products>
+                </menu>
+            </menus>
+            <openingTime>10:00:00</openingTime>
+            <closingTime>24:00:00</closingTime>
+            <orders>
+                <order id="1">
+                    <orderNumber>f47ac10b-58cc-4372-a567-0e02b2c3d479</orderNumber>
+                    <foodSpotId>1</foodSpotId>
+                    <Courier id="1">
+                        <firstname>Kevin</firstname>
+                        <lastname>Lon</lastname>
+                        <phoneNumber>155639456</phoneNumber>
+                        <email>kingkevin@gmail.com</email>
+                        <licenseNumber>AA-9663366BD4</licenseNumber>
+                        <workingExperience>
+                            <years>5</years>
+                            <months>4</months>
+                            <days>3</days>
+                        </workingExperience>
+                        <orders>
+                            <orderId>1</orderId>
+                            <orderId>3</orderId>
+                            <orderId>9</orderId>
+                        </orders>
+                    </Courier>
+                    <User id="1">
+                        <firstname>Susy</firstname>
+                        <lastname>Siy</lastname>
+                        <phoneNumber>19853014</phoneNumber>
+                        <email>siy.s@gmail.com</email>
+                        <balance>35.96</balance>
+                        <subscription>false</subscription>
+                        <orders>
+                            <orderId>1</orderId>
+                        </orders>
+                    </User>
+                    <totalPrice>5.75</totalPrice>
+                    <products>
+                        <product id="1">
+                            <name>Hamburger</name>
+                            <price>2.85</price>
+                            <description>Standard hamburger</description>
+                            <available>true</available>
+                        </product>
+                        <product id="4">
+                            <name>Coca cola</name>
+                            <price>2.50</price>
+                            <description>Standard coca cola 0.5 L</description>
+                            <available>true</available>
+                        </product>
+                    </products>
+                    <takeAddress>Washington street 15</takeAddress>
+                    <bringAddress>delivery street 3/8</bringAddress>
+                    <finished>false</finished>
+                    <orderDateTime>2025-10-31T14:34:23</orderDateTime>
+                </order>
+            </orders>
+        </foodSpot>
+    </foodSpots>
+</foodSpotOwner>

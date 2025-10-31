@@ -1,6 +1,6 @@
 package com.solvd;
 
-public class Main {
+public class FoodDelivery {
     public static void main(String[] args) {
 
     }

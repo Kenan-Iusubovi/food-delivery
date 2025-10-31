@@ -1,6 +1,6 @@
-package com.solvd.domain.human;
+package com.solvd.fooddelivery.entity.human;
 
-import com.solvd.domain.order.Order;
+import com.solvd.fooddelivery.entity.order.Order;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,9 +1,10 @@
-package com.solvd.domain.foodspot;
+package com.solvd.fooddelivery.entity.foodspot;
 
 
-import com.solvd.domain.order.Order;
-import lombok.AllArgsConstructor;
+import com.solvd.fooddelivery.entity.order.Order;
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Setter;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.List;
 @Data
 public class FoodSpot {
 
+    @Setter(AccessLevel.NONE)
     private long id;
     private String name;
     private String address;
