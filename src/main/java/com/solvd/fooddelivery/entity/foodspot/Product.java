@@ -1,20 +1,17 @@
 package com.solvd.fooddelivery.entity.foodspot;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Setter;
+import com.sun.java.accessibility.util.AccessibilityListenerList;
+import lombok.*;
 
-import java.util.List;
+import java.math.BigDecimal;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Product {
-
-    @Setter(AccessLevel.NONE)
-    private long id;
+    private Long id;
     private String name;
-    private double price;
+    private BigDecimal price;
     private String description;
     private boolean available;
 }

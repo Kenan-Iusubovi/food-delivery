@@ -1,22 +1,19 @@
 package com.solvd.fooddelivery.entity.human;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Setter;
+import lombok.*;
 
 @AllArgsConstructor
 @Data
+@NoArgsConstructor
 public abstract class Human {
 
-    @Setter(AccessLevel.NONE)
-    private long id;
-    private String firstname;
-    private String lastname;
+    private Long id;
+    private String name;
+    private String surname;
     private String phoneNumber;
     private String email;
 
     public String getFullName(){
-        return firstname + " " + lastname;
+        return name + " " + surname;
     }
 }
