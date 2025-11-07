@@ -1,4 +1,4 @@
-package com.solvd.fooddelivery.handler;
+package com.solvd.fooddelivery.saxparser.handler;
 
 import com.solvd.fooddelivery.entity.FoodDelivery;
 import com.solvd.fooddelivery.entity.foodspot.FoodSpot;
@@ -8,6 +8,7 @@ import com.solvd.fooddelivery.entity.human.*;
 import com.solvd.fooddelivery.entity.human.courier.Courier;
 import com.solvd.fooddelivery.entity.human.courier.WorkingExperience;
 import com.solvd.fooddelivery.entity.order.Order;
+import org.apache.commons.lang3.StringUtils;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -16,80 +17,64 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
-import java.util.function.BiConsumer;
 
 public class CustomSaxHandler extends DefaultHandler {
 
     private FoodDelivery foodDelivery;
-    private Deque<Object> stack = new ArrayDeque<>();
+    private FoodSpotOwner foodSpotOwner;
+    private FoodSpot foodSpot;
+    private Menu menu;
+    private Product product;
+    private Order order;
+    private Customer customer;
+    private Courier courier;
+    private WorkingExperience workingExperience;
     private StringBuilder data = new StringBuilder();
 
 
     @Override
     public void startElement(String uri, String localName, String qName,
                              Attributes attributes) throws SAXException {
+
+       Object currentObject = null;
+       Long currentId = getId(attributes);
+
         switch (qName) {
-            case "foodDelivery" ->{
-                foodDelivery = new FoodDelivery();
-                stack.push(foodDelivery);
-            }
+            case "foodDelivery" -> foodDelivery = new FoodDelivery();
             case "foodSpotOwner" -> {
-                FoodSpotOwner owner = new FoodSpotOwner();
-                Long id = Long.valueOf(attributes.getValue("id"));
-                if (id != null) {
-                    owner.setId(id);
-                }
-                stack.push(owner);
+                 foodSpotOwner = new FoodSpotOwner();
+                 currentObject = foodSpotOwner;
             }
             case "foodSpot" -> {
-                FoodSpot foodSpot = new FoodSpot();
-                Long id = Long.valueOf(attributes.getValue("id"));
-                if (id != null) {
-                    foodSpot.setId(id);
-                }
-                stack.push(foodSpot);
+                foodSpot = new FoodSpot();
+                currentObject = foodSpot;
             }
             case "menu" -> {
-                Menu menu = new Menu();
-                Long id = Long.valueOf(attributes.getValue("id"));
-                if (id != null) {
-                    menu.setId(id);
-                }
-                stack.push(menu);
+                menu = new Menu();
+                currentObject = menu;
             }
             case "product" -> {
-                Product product = new Product();
-                Long id = Long.valueOf(attributes.getValue("id"));
-                if (id != null) {
-                    product.setId(id);
-                }
-                stack.push(product);
+                product = new Product();
+                currentObject = product;
             }
             case "order" -> {
-                Order order = new Order();
-                Long id = Long.valueOf(attributes.getValue("id"));
-                if (id != null) {
-                    order.setId(id);
-                }
-                stack.push(order);
+                order = new Order();
+                currentObject = order;
             }
             case "courier" -> {
-                Courier courier = new Courier();
-                Long id = Long.valueOf(attributes.getValue("id"));
-                if (id != null) {
-                    courier.setId(id);
-                }
-                stack.push(courier);
+                courier = new Courier();
+                currentObject = courier;
             }
             case "customer" -> {
-                Customer customer = new Customer();
-                Long id = Long.valueOf(attributes.getValue("id"));
-                if (id != null) {
-                    customer.setId(id);
-                }
-                stack.push(customer);
+                customer = new Customer();
+                currentObject = customer;
             }
-            case "workingExperience" -> stack.push(new WorkingExperience());
+            case "workingExperience" -> workingExperience = new WorkingExperience();
+            default -> {
+                if (currentId != null && currentObject != null){
+                    assignId(currentObject, currentId);
+                }
+            }
         }
         data.setLength(0);
     }
@@ -102,15 +87,9 @@ public class CustomSaxHandler extends DefaultHandler {
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
         String value = data.toString().trim();
-        Object current = stack.peek();
 
         switch (qName) {
-            case "foodSpotOwner" -> attachToParent(
-                    FoodDelivery.class, FoodSpotOwner.class,
-                    (FoodDelivery foodDelivery, FoodSpotOwner foodSpotOwner) ->
-                            foodDelivery.getFoodSpotOwners().add(foodSpotOwner)
-
-            );
+            case "foodSpotOwner" -> c
             case "name" -> {
                 if (current instanceof Human human){
                     human.setName(value);
@@ -283,11 +262,18 @@ public class CustomSaxHandler extends DefaultHandler {
         }
     }
 
-    private <Parent, Child> void attachToParent(Class<Parent> parentType, Class<Child> childType,
-                                                BiConsumer<Parent, Child> attachAction) {
-        Child child = childType.cast(stack.pop());
-        Parent parent = parentType.cast(stack.peek());
-        attachAction.accept(parent, child);
+    private void assignId(Object object, Long id){
+        try {
+            object.getClass().getMethod("setId", Long.class)
+                    .invoke(object, id);
+        }catch (Exception e){
+
+        }
+    }
+
+    private Long getId(Attributes attributes){
+        String value = attributes.getValue("id");
+        return !StringUtils.isBlank(value) ? Long.valueOf(value) : null;
     }
 
     public FoodDelivery getResult() {

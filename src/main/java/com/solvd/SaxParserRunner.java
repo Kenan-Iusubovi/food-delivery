@@ -1,7 +1,7 @@
 package com.solvd;
 
 import com.solvd.fooddelivery.entity.FoodDelivery;
-import com.solvd.fooddelivery.handler.CustomSaxHandler;
+import com.solvd.fooddelivery.saxparser.handler.CustomSaxHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -15,7 +15,7 @@ import javax.xml.validation.SchemaFactory;
 import java.io.File;
 import java.io.IOException;
 
-public class Main {
+public class SaxParserRunner {
 
     private final static String PATH_TO_INCORRECT_XSD = "src/main/resources/food-delivery-INCORRECT.xsd";
     private final static String PATH_TO_CORRECT_XSD = "src/main/resources/food-delivery-CORRECT.xsd";

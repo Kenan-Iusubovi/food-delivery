@@ -1,5 +1,5 @@
-<foodDelivery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-              xsi:noNamespaceSchemaLocation="food-delivery-CORRECT.xsd">
+
+<foodDelivery>
     <foodSpotOwners>
         <foodSpotOwner id="1">
             <name>John</name>
@@ -65,7 +65,6 @@
                     <orders>
                         <order id="1">
                             <orderNumber>f47ac10b-58cc-4372-a567-0e02b2c3d479</orderNumber>
-                            <foodSpotId>1</foodSpotId>
                             <courier id="1">
                                 <name>Kevin</name>
                                 <surname>Lon</surname>
@@ -136,7 +135,6 @@
                     <orders>
                         <order id="2">
                             <orderNumber>a58bc21c-69dd-5483-b678-1f13c4e4e590</orderNumber>
-                            <foodSpotId>2</foodSpotId>
                             <courier id="2">
                                 <name>Maria</name>
                                 <surname>Garcia</surname>
