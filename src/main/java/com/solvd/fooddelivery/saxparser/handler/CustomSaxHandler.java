@@ -1,10 +1,12 @@
 package com.solvd.fooddelivery.saxparser.handler;
 
 import com.solvd.fooddelivery.entity.FoodDelivery;
+import com.solvd.fooddelivery.entity.ProductContainer;
 import com.solvd.fooddelivery.entity.foodspot.FoodSpot;
 import com.solvd.fooddelivery.entity.foodspot.Menu;
 import com.solvd.fooddelivery.entity.foodspot.Product;
-import com.solvd.fooddelivery.entity.human.*;
+import com.solvd.fooddelivery.entity.human.Customer;
+import com.solvd.fooddelivery.entity.human.FoodSpotOwner;
 import com.solvd.fooddelivery.entity.human.courier.Courier;
 import com.solvd.fooddelivery.entity.human.courier.WorkingExperience;
 import com.solvd.fooddelivery.entity.order.Order;
@@ -16,19 +18,15 @@ import org.xml.sax.helpers.DefaultHandler;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.UUID;
+import java.util.function.BiConsumer;
 
 public class CustomSaxHandler extends DefaultHandler {
 
     private FoodDelivery foodDelivery;
-    private FoodSpotOwner foodSpotOwner;
-    private FoodSpot foodSpot;
-    private Menu menu;
-    private Product product;
-    private Order order;
-    private Customer customer;
-    private Courier courier;
-    private WorkingExperience workingExperience;
+    private Deque<Object> stack = new ArrayDeque<>();
     private StringBuilder data = new StringBuilder();
 
 
@@ -36,242 +34,161 @@ public class CustomSaxHandler extends DefaultHandler {
     public void startElement(String uri, String localName, String qName,
                              Attributes attributes) throws SAXException {
 
-       Object currentObject = null;
-       Long currentId = getId(attributes);
+        Object currentObject = null;
+        Long currentId = getId(attributes);
 
         switch (qName) {
-            case "foodDelivery" -> foodDelivery = new FoodDelivery();
-            case "foodSpotOwner" -> {
-                 foodSpotOwner = new FoodSpotOwner();
-                 currentObject = foodSpotOwner;
+            case "foodDelivery" -> currentObject = foodDelivery = new FoodDelivery();
+            case "foodSpotOwner" -> currentObject = new FoodSpotOwner();
+            case "foodSpot" -> currentObject = new FoodSpot();
+            case "menu" -> currentObject = new Menu();
+            case "product" -> currentObject = new Product();
+            case "order" -> currentObject = new Order();
+            case "courier" -> currentObject = new Courier();
+            case "customer" -> currentObject = new Customer();
+            case "workingExperience" -> currentObject = new WorkingExperience();
+        }
+        if (currentObject != null) {
+            if (currentId != null) {
+                assignId(currentObject, currentId);
             }
-            case "foodSpot" -> {
-                foodSpot = new FoodSpot();
-                currentObject = foodSpot;
-            }
-            case "menu" -> {
-                menu = new Menu();
-                currentObject = menu;
-            }
-            case "product" -> {
-                product = new Product();
-                currentObject = product;
-            }
-            case "order" -> {
-                order = new Order();
-                currentObject = order;
-            }
-            case "courier" -> {
-                courier = new Courier();
-                currentObject = courier;
-            }
-            case "customer" -> {
-                customer = new Customer();
-                currentObject = customer;
-            }
-            case "workingExperience" -> workingExperience = new WorkingExperience();
-            default -> {
-                if (currentId != null && currentObject != null){
-                    assignId(currentObject, currentId);
-                }
-            }
+            stack.push(currentObject);
         }
         data.setLength(0);
     }
 
     @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
+
         data.append(ch, start, length);
     }
 
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
+
         String value = data.toString().trim();
+        Object currentObject = stack.peek();
 
-        switch (qName) {
-            case "foodSpotOwner" -> c
-            case "name" -> {
-                if (current instanceof Human human){
-                    human.setName(value);
-                }
-                if (current instanceof FoodSpot foodSpot) {
-                    foodSpot.setName(value);
-                }
-                if (current instanceof Menu menu) {
-                    menu.setName(value);
-                }
-                if (current instanceof Product product) {
-                    product.setName(value);
-                }
+        boolean matched = switch (qName) {
+            case "foodSpotOwner" -> {
+                attachToParent(
+                        FoodDelivery.class, FoodSpotOwner.class,
+                        (FoodDelivery foodDelivery, FoodSpotOwner owner) ->
+                                foodDelivery.getFoodSpotOwners().add(owner));
+                yield true;
             }
-            case "surname" -> {
-                if (current instanceof Human human) {
-                    human.setSurname(value);
-                }
+            case "foodSpot" -> {
+                attachToParent(
+                        FoodSpotOwner.class, FoodSpot.class,
+                        (FoodSpotOwner foodSpotOwner, FoodSpot foodSpot) ->
+                                foodSpotOwner.getFoodSpots().add(foodSpot));
+                yield true;
             }
-            case "phoneNumber" -> {
-                if (current instanceof Human human) {
-                    human.setPhoneNumber(value);
-                }
-                if (current instanceof FoodSpot foodSpot) {
-                    foodSpot.setPhoneNumber(value);
-                }
-            }
-            case "email" -> {
-                if (current instanceof Human human) {
-                    human.setEmail(value);
-                }
-            }
-            case "businesLicense" -> {
-                if (current instanceof FoodSpotOwner owner) {
-                    owner.setBusinessLicense(value);
-                }
-            }
-            case "foodSpot" -> attachToParent(
-                    FoodSpotOwner.class, FoodSpot.class,
-                    (FoodSpotOwner foodSpotOwner, FoodSpot foodSpot) ->
-                            foodSpotOwner.getFoodSpots().add(foodSpot)
-            );
-
-            case "address" -> {
-                if (current instanceof FoodSpot foodSpot) {
-                    foodSpot.setAddress(value);
-                }
+            case "menu" -> {
+                attachToParent(
+                        FoodSpot.class, Menu.class,
+                        (FoodSpot foodSpot, Menu menu) ->
+                                foodSpot.getMenus().add(menu));
+                yield true;
             }
             case "product" -> {
-                if (current instanceof Menu) {
-                    attachToParent(
-                            Menu.class, Product.class,
-                            (Menu menu, Product product) ->
-                                    menu.getProducts().add(product)
-                    );
-                }
-                if (current instanceof Order) {
-                    attachToParent(
-                            Order.class, Product.class,
-                            (Order order, Product product) ->
-                                    order.getProducts().add(product)
-                    );
-                }
+                attachToParent(
+                        ProductContainer.class, Product.class,
+                        (ProductContainer container, Product product) ->
+                                container.getProducts().add(product)
+                );
+                yield true;
             }
-            case "price" -> {
-                if (current instanceof Product product) {
-                    product.setPrice(BigDecimal.valueOf(Double.parseDouble(value)));
-                }
+            case "order" -> {
+                attachToParent(
+                        FoodSpot.class, Order.class,
+                        (FoodSpot foodSpot, Order order) ->
+                                foodSpot.getOrders().add(order));
+                yield true;
             }
-            case "description" -> {
-                if (current instanceof Product product) {
-                    product.setDescription(value);
-                }
+            case "courier" -> {
+                attachToParent(
+                        Order.class, Courier.class,
+                        Order::setCourier);
+                yield true;
             }
-            case "available" -> {
-                if (current instanceof Product product) {
-                    product.setAvailable(Boolean.parseBoolean(value));
-                }
+            case "customer" -> {
+                attachToParent(Order.class, Customer.class,
+                        Order::setCustomer);
+                yield true;
             }
-            case "openingTime" -> {
-                if (current instanceof FoodSpot foodSpot) {
-                    foodSpot.setOpeningTime(LocalTime.parse(value));
-                }
+            case "workingExperience" -> {
+                attachToParent(Courier.class, WorkingExperience.class,
+                        Courier::setWorkingExperience);
+                yield true;
             }
-            case "closingTime" -> {
-                if (current instanceof FoodSpot foodSpot) {
-                    foodSpot.setClosingTime(LocalTime.parse(value));
-                }
-            }
-            case "order" -> attachToParent(
-                    FoodSpot.class, Order.class,
-                    (FoodSpot foodSpot, Order order) ->
-                        foodSpot.getOrders().add(order)
-                    );
-            case "orderNumber" -> {
-                if (current instanceof Order order) {
-                    order.setOrderNumber(UUID.fromString(value));
-                }
-            }
-            case "courier" -> attachToParent(
-                    Order.class, Courier.class,
-                    (Order order, Courier courier) ->
-                        order.setCourier(courier)
-            );
-            case "customer" -> attachToParent(
-                    Order.class, Customer.class,
-                    Order::setCustomer
-            );
-            case "licenseNumber" -> {
-                if (current instanceof Courier courier) {
-                    courier.setLicenseNumber(value);
-                }
-            }
-            case "workingExperience" -> attachToParent(
-                    Courier.class, WorkingExperience.class,
-                    (Courier::setWorkingExperience)
-            );
-            case "years" -> {
-                if (current instanceof WorkingExperience workingExperience) {
-                    workingExperience.setYears(Integer.parseInt(value));
-                }
-            }
-            case "months" -> {
-                if (current instanceof WorkingExperience workingExperience) {
-                    workingExperience.setMonths(Integer.parseInt(value));
-                }
-            }
-            case "days" -> {
-                if (current instanceof WorkingExperience workingExperience) {
-                    workingExperience.setDays(Integer.parseInt(value));
-                }
-            }
-            case "balance" -> {
-                if (current instanceof Customer customer) {
-                    customer.setBalance(BigDecimal.valueOf(Double.parseDouble(value)));
-                }
-            }
-            case "subscription" -> {
-                if (current instanceof Customer customer) {
-                    customer.setSubscription(Boolean.parseBoolean(value));
-                }
-            }
+            default -> false;
+        };
 
+        if (!matched) {
 
-            case "totalPrice" -> {
-                if (current instanceof Order order) {
-                    order.setTotalPrice(BigDecimal.valueOf(Double.parseDouble(value)));
-                }
-            }
-            case "takeAddress" -> {
-                if (current instanceof Order order){
-                    order.setTakeAddress(value);
-                }
-            }
-            case "bringAddress" -> {
-                if (current instanceof Order order){
-                    order.setBringAddress(value);
-                }
-            }
-            case "finished" -> {
-                if (current instanceof Order order){
-                    order.setFinished(Boolean.parseBoolean(value));
-                }
-            }
-            case "orderDateTime" -> {
-                if (current instanceof Order order){
-                    order.setOrderDateTime(LocalDateTime.parse(value));
-                }
-            }
+            setField(currentObject, value, qName);
         }
     }
 
-    private void assignId(Object object, Long id){
+    private void setField(Object object, String value, String qName) {
+
+        String methodName = "set" + StringUtils.capitalize(qName);
+        try {
+            var methods = object.getClass().getMethods();
+            for (var method : methods) {
+                if (method.getName().equals(methodName) && method.getParameterCount() == 1) {
+                    Class<?> paramType = method.getParameterTypes()[0];
+
+                    Object convertedValue = convertValue(value, paramType);
+                    method.invoke(object, convertedValue);
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Failed to set field " + value + " on " +
+                    object.getClass().getSimpleName() + ": " + e.getMessage());
+        }
+    }
+
+    private Object convertValue(String value, Class<?> targetType) {
+        if (targetType == String.class) return value;
+        if (targetType == Long.class || targetType == long.class) return Long.valueOf(value);
+        if (targetType == Integer.class || targetType == int.class) return Integer.valueOf(value);
+        if (targetType == Double.class || targetType == double.class) return Double.valueOf(value);
+        if (targetType == Boolean.class || targetType == boolean.class) return Boolean.parseBoolean(value);
+        if (targetType == BigDecimal.class) return new BigDecimal(value);
+        if (targetType == LocalTime.class) return LocalTime.parse(value);
+        if (targetType == LocalDateTime.class) return LocalDateTime.parse(value);
+        if (targetType == UUID.class) return UUID.fromString(value);
+
+        try {
+            return targetType.getConstructor(String.class).newInstance(value);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+
+        return null;
+    }
+
+    private <Parent, Child> void attachToParent(Class<Parent> parentType, Class<Child> childType,
+                                                BiConsumer<Parent, Child> attachAction) {
+        Child child = childType.cast(stack.peek());
+        stack.pop();
+        Parent parent = parentType.cast(stack.peek());
+        attachAction.accept(parent, child);
+    }
+
+    private void assignId(Object object, Long id) {
         try {
             object.getClass().getMethod("setId", Long.class)
                     .invoke(object, id);
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
 
-    private Long getId(Attributes attributes){
+    private Long getId(Attributes attributes) {
         String value = attributes.getValue("id");
         return !StringUtils.isBlank(value) ? Long.valueOf(value) : null;
     }

@@ -23,15 +23,15 @@ public class SaxParserRunner {
 
     public static void main(String[] args) {
 
-       // System.out.println("Checking with incorrect xsd");
-       // checkXmlDueXsd(PATH_TO_XML,PATH_TO_INCORRECT_XSD);
-       // System.out.println("Checking with correct xsd");
-       // checkXmlDueXsd(PATH_TO_XML,PATH_TO_CORRECT_XSD);
+        System.out.println("Checking with incorrect xsd");
+        checkXmlDueXsd(PATH_TO_XML, PATH_TO_INCORRECT_XSD);
+        System.out.println("Checking with correct xsd");
+        checkXmlDueXsd(PATH_TO_XML, PATH_TO_CORRECT_XSD);
 
         parseXml(PATH_TO_XML);
     }
 
-    public static void parseXml(String pathToXml){
+    public static void parseXml(String pathToXml) {
         try {
 
             SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
@@ -44,16 +44,12 @@ public class SaxParserRunner {
 
             System.out.println(foodDelivery);
 
-        } catch (ParserConfigurationException e) {
-            throw new RuntimeException(e);
-        } catch (SAXException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            System.err.println(e.getCause() + e.getMessage());
         }
     }
 
-    public static void checkXmlDueXsd(String xmlPath, String xsdPath){
+    public static void checkXmlDueXsd(String xmlPath, String xsdPath) {
         try {
 
             SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
@@ -64,18 +60,18 @@ public class SaxParserRunner {
             saxParserFactory.setSchema(schema);
 
             SAXParser saxParser = saxParserFactory.newSAXParser();
-            saxParser.parse(new File(xmlPath), new DefaultHandler(){
-
-            @Override
-            public void error(SAXParseException e) throws SAXException {
-                throw e;
-            }
+            saxParser.parse(new File(xmlPath), new DefaultHandler() {
 
                 @Override
-            public void warning(SAXParseException e) throws SAXException {
-                System.out.println("Warning: " + e.getMessage());
-            }
-        });
+                public void error(SAXParseException e) throws SAXException {
+                    throw e;
+                }
+
+                @Override
+                public void warning(SAXParseException e) throws SAXException {
+                    System.out.println("Warning: " + e.getMessage());
+                }
+            });
 
             System.out.println("XML file is valid due to XSD");
         } catch (SAXException e) {

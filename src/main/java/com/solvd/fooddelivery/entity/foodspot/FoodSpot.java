@@ -1,12 +1,9 @@
 package com.solvd.fooddelivery.entity.foodspot;
 
 
-import com.solvd.fooddelivery.entity.human.FoodSpotOwner;
 import com.solvd.fooddelivery.entity.order.Order;
-import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -24,5 +21,5 @@ public class FoodSpot {
     private LocalTime openingTime;
     private LocalTime closingTime;
     private List<Order> orders = new ArrayList<>();
- }
+}
 

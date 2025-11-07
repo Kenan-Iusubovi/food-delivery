@@ -37,8 +37,8 @@ public class WorkingExperience {
         }
     }
 
-    public String getWorkingPeriod(){
+    public String getWorkingPeriod() {
         return new String(years + " years "
-        + months +" months " + days + " days.");
+                + months + " months " + days + " days.");
     }
 }

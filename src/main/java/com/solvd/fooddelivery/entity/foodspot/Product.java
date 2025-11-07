@@ -1,7 +1,8 @@
 package com.solvd.fooddelivery.entity.foodspot;
 
-import com.sun.java.accessibility.util.AccessibilityListenerList;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 

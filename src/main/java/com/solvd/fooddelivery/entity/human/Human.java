@@ -1,6 +1,8 @@
 package com.solvd.fooddelivery.entity.human;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @Data
@@ -13,7 +15,7 @@ public abstract class Human {
     private String phoneNumber;
     private String email;
 
-    public String getFullName(){
+    public String getFullName() {
         return name + " " + surname;
     }
 }

@@ -1,2 +1,110 @@
-<foodDelivery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-              xsi:noNamespaceSchemaLocation="food-delivery-CORRECT.xsd">
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="foodDelivery">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="foodSpotOwner">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element type="xs:string" name="name"/>
+                            <xs:element type="xs:string" name="surname"/>
+                            <xs:element type="xs:int" name="phoneNumber"/>
+                            <xs:element type="xs:string" name="email"/>
+                            <xs:element type="xs:string" name="businessLicense"/>
+                            <xs:element name="foodSpot">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element type="xs:string" name="name"/>
+                                        <xs:element type="xs:string" name="address"/>
+                                        <xs:element type="xs:int" name="phoneNumber"/>
+                                        <xs:element name="menu" maxOccurs="unbounded" minOccurs="0">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element type="xs:string" name="name"/>
+                                                    <xs:element name="product" maxOccurs="unbounded" minOccurs="0">
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element type="xs:string" name="name"/>
+                                                                <xs:element type="xs:float" name="price"/>
+                                                                <xs:element type="xs:string" name="description"/>
+                                                                <xs:element type="xs:string" name="available"/>
+                                                            </xs:sequence>
+                                                            <xs:attribute type="xs:byte" name="id" use="optional"/>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                                <xs:attribute type="xs:byte" name="id" use="optional"/>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element type="xs:time" name="openingTime"/>
+                                        <xs:element type="xs:time" name="closingTime"/>
+                                        <xs:element name="order">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element type="xs:string" name="orderNumber"/>
+                                                    <xs:element name="courier">
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element type="xs:string" name="name"/>
+                                                                <xs:element type="xs:string" name="surname"/>
+                                                                <xs:element type="xs:int" name="phoneNumber"/>
+                                                                <xs:element type="xs:string" name="email"/>
+                                                                <xs:element type="xs:string" name="licenseNumber"/>
+                                                                <xs:element name="workingExperience">
+                                                                    <xs:complexType>
+                                                                        <xs:sequence>
+                                                                            <xs:element type="xs:byte" name="years"/>
+                                                                            <xs:element type="xs:byte" name="months"/>
+                                                                            <xs:element type="xs:byte" name="days"/>
+                                                                        </xs:sequence>
+                                                                    </xs:complexType>
+                                                                </xs:element>
+                                                            </xs:sequence>
+                                                            <xs:attribute type="xs:byte" name="id"/>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                    <xs:element name="customer">
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element type="xs:string" name="name"/>
+                                                                <xs:element type="xs:string" name="surname"/>
+                                                                <xs:element type="xs:int" name="phoneNumber"/>
+                                                                <xs:element type="xs:string" name="email"/>
+                                                                <xs:element type="xs:float" name="balance"/>
+                                                                <xs:element type="xs:string" name="subscription"/>
+                                                            </xs:sequence>
+                                                            <xs:attribute type="xs:byte" name="id"/>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                    <xs:element type="xs:float" name="totalPrice"/>
+                                                    <xs:element name="product" maxOccurs="unbounded" minOccurs="0">
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element type="xs:string" name="name"/>
+                                                                <xs:element type="xs:float" name="price"/>
+                                                                <xs:element type="xs:string" name="description"/>
+                                                                <xs:element type="xs:string" name="available"/>
+                                                            </xs:sequence>
+                                                            <xs:attribute type="xs:byte" name="id" use="optional"/>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                    <xs:element type="xs:string" name="takeAddress"/>
+                                                    <xs:element type="xs:string" name="bringAddress"/>
+                                                    <xs:element type="xs:string" name="finished"/>
+                                                    <xs:element type="xs:dateTime" name="orderDateTime"/>
+                                                </xs:sequence>
+                                                <xs:attribute type="xs:byte" name="id"/>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                    <xs:attribute type="xs:byte" name="id"/>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:byte" name="id"/>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
