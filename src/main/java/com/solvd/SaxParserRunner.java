@@ -75,7 +75,7 @@ public class SaxParserRunner {
 
             System.out.println("XML file is valid due to XSD");
         } catch (SAXException e) {
-            System.out.println("XML is NOT valid: " + e.getMessage());
+            System.err.println("XML is NOT valid: " + e.getMessage());
         } catch (IOException | ParserConfigurationException e) {
             throw new RuntimeException(e);
         }
