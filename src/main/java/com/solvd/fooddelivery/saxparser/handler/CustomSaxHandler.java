@@ -140,7 +140,7 @@ public class CustomSaxHandler extends DefaultHandler {
             for (var method : methods) {
                 if (method.getName().equals(methodName) && method.getParameterCount() == 1) {
                     Class<?> paramType = method.getParameterTypes()[0];
-                    if (Collection.class.isAssignableFrom(paramType)){
+                    if (Collection.class.isAssignableFrom(paramType)) {
                         return;
                     }
 

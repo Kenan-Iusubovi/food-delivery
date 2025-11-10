@@ -1,6 +1,7 @@
 package com.solvd;
 
 import com.solvd.fooddelivery.entity.FoodDelivery;
+import com.solvd.fooddelivery.jaxbfraemwork.JaxBRunner;
 import com.solvd.fooddelivery.saxparser.handler.CustomSaxHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
@@ -15,7 +16,7 @@ import javax.xml.validation.SchemaFactory;
 import java.io.File;
 import java.io.IOException;
 
-public class SaxParserRunner {
+public class Main {
 
     private final static String PATH_TO_INCORRECT_XSD = "src/main/resources/food-delivery-INCORRECT.xsd";
     private final static String PATH_TO_CORRECT_XSD = "src/main/resources/food-delivery-CORRECT.xsd";
@@ -29,6 +30,12 @@ public class SaxParserRunner {
         checkXmlDueXsd(PATH_TO_XML, PATH_TO_CORRECT_XSD);
 
         parseXml(PATH_TO_XML);
+
+        JaxBRunner jaxBRunner = new JaxBRunner();
+
+        FoodDelivery foodDelivery = (FoodDelivery) jaxBRunner.parseWithJaxB(FoodDelivery.class, PATH_TO_XML);
+
+        System.out.println(foodDelivery);
     }
 
     public static void parseXml(String pathToXml) {

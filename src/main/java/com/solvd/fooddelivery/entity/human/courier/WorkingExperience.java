@@ -1,10 +1,15 @@
 package com.solvd.fooddelivery.entity.human.courier;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@XmlRootElement(name = "workingExperience")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class WorkingExperience {
 
     private int years;
