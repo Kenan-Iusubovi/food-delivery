@@ -1,116 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Created with Liquid Technologies Online Tools 1.0 (https://www.liquid-technologies.com) -->
-<xs:schema attributeFormDefault="unqualified"
-           elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
     <xs:element name="foodDelivery">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="foodSpotOwner">
+                <xs:element name="foodSpotOwners">
                     <xs:complexType>
                         <xs:sequence>
-                            <xs:element name="name" type="xs:string"/>
-                            <xs:element name="surname" type="xs:string"/>
-                            <xs:element name="phoneNumber" type="xs:unsignedInt"/>
-                            <xs:element name="email" type="xs:string"/>
-                            <xs:element name="businessLicense" type="xs:string"/>
-                            <xs:element maxOccurs="unbounded" name="foodSpot">
+                            <xs:element name="foodSpotOwner">
                                 <xs:complexType>
                                     <xs:sequence>
-                                        <xs:element name="name" type="xs:string"/>
-                                        <xs:element name="address" type="xs:string"/>
-                                        <xs:element name="phoneNumber" type="xs:unsignedInt"/>
-                                        <xs:element maxOccurs="unbounded" name="menu">
+                                        <xs:element name="name" type="xs:string" />
+                                        <xs:element name="surname" type="xs:string" />
+                                        <xs:element name="phoneNumber" type="xs:unsignedInt" />
+                                        <xs:element name="email" type="xs:string" />
+                                        <xs:element name="businessLicense" type="xs:string" />
+                                        <xs:element name="foodSpots">
                                             <xs:complexType>
                                                 <xs:sequence>
-                                                    <xs:element name="name" type="xs:string"/>
-                                                    <xs:element maxOccurs="unbounded" name="product">
+                                                    <xs:element maxOccurs="unbounded" name="foodSpot">
                                                         <xs:complexType>
                                                             <xs:sequence>
-                                                                <xs:element name="name" type="xs:string"/>
-                                                                <xs:element name="price" type="xs:decimal"/>
-                                                                <xs:element name="description" type="xs:string"/>
-                                                                <xs:element name="available" type="xs:boolean"/>
-                                                            </xs:sequence>
-                                                            <xs:attribute name="id" type="xs:unsignedByte"
-                                                                          use="required"/>
-                                                        </xs:complexType>
-                                                    </xs:element>
-                                                </xs:sequence>
-                                                <xs:attribute name="id" type="xs:unsignedByte" use="required"/>
-                                            </xs:complexType>
-                                        </xs:element>
-                                        <xs:element name="openingTime" type="xs:time"/>
-                                        <xs:element name="closingTime" type="xs:time"/>
-                                        <xs:element name="order">
-                                            <xs:complexType>
-                                                <xs:sequence>
-                                                    <xs:element name="orderNumber" type="xs:string"/>
-                                                    <xs:element name="courier">
-                                                        <xs:complexType>
-                                                            <xs:sequence>
-                                                                <xs:element name="name" type="xs:string"/>
-                                                                <xs:element name="surname" type="xs:string"/>
-                                                                <xs:element name="phoneNumber" type="xs:unsignedInt"/>
-                                                                <xs:element name="email" type="xs:string"/>
-                                                                <xs:element name="licenseNumber" type="xs:string"/>
-                                                                <xs:element name="workingExperience">
+                                                                <xs:element name="name" type="xs:string" />
+                                                                <xs:element name="address" type="xs:string" />
+                                                                <xs:element name="phoneNumber" type="xs:unsignedInt" />
+                                                                <xs:element name="menus">
                                                                     <xs:complexType>
                                                                         <xs:sequence>
-                                                                            <xs:element name="years"
-                                                                                        type="xs:unsignedByte"/>
-                                                                            <xs:element name="months"
-                                                                                        type="xs:unsignedByte"/>
-                                                                            <xs:element name="days"
-                                                                                        type="xs:unsignedByte"/>
+                                                                            <xs:element maxOccurs="unbounded" name="menu">
+                                                                                <xs:complexType>
+                                                                                    <xs:sequence>
+                                                                                        <xs:element name="name" type="xs:string" />
+                                                                                        <xs:element name="products">
+                                                                                            <xs:complexType>
+                                                                                                <xs:sequence>
+                                                                                                    <xs:element maxOccurs="unbounded" name="product">
+                                                                                                        <xs:complexType>
+                                                                                                            <xs:sequence>
+                                                                                                                <xs:element name="name" type="xs:string" />
+                                                                                                                <xs:element name="price" type="xs:decimal" />
+                                                                                                                <xs:element name="description" type="xs:string" />
+                                                                                                                <xs:element name="available" type="xs:boolean" />
+                                                                                                            </xs:sequence>
+                                                                                                            <xs:attribute name="id" type="xs:unsignedByte" use="required" />
+                                                                                                        </xs:complexType>
+                                                                                                    </xs:element>
+                                                                                                </xs:sequence>
+                                                                                            </xs:complexType>
+                                                                                        </xs:element>
+                                                                                    </xs:sequence>
+                                                                                    <xs:attribute name="id" type="xs:unsignedByte" use="required" />
+                                                                                </xs:complexType>
+                                                                            </xs:element>
+                                                                        </xs:sequence>
+                                                                    </xs:complexType>
+                                                                </xs:element>
+                                                                <xs:element name="openingTime" type="xs:time" />
+                                                                <xs:element name="closingTime" type="xs:time" />
+                                                                <xs:element name="orders">
+                                                                    <xs:complexType>
+                                                                        <xs:sequence>
+                                                                            <xs:element name="order">
+                                                                                <xs:complexType>
+                                                                                    <xs:sequence>
+                                                                                        <xs:element name="orderNumber" type="xs:string" />
+                                                                                        <xs:element name="courier">
+                                                                                            <xs:complexType>
+                                                                                                <xs:sequence>
+                                                                                                    <xs:element name="name" type="xs:string" />
+                                                                                                    <xs:element name="surname" type="xs:string" />
+                                                                                                    <xs:element name="phoneNumber" type="xs:unsignedInt" />
+                                                                                                    <xs:element name="email" type="xs:string" />
+                                                                                                    <xs:element name="licenseNumber" type="xs:string" />
+                                                                                                    <xs:element name="workingExperience">
+                                                                                                        <xs:complexType>
+                                                                                                            <xs:sequence>
+                                                                                                                <xs:element name="years" type="xs:unsignedByte" />
+                                                                                                                <xs:element name="months" type="xs:unsignedByte" />
+                                                                                                                <xs:element name="days" type="xs:unsignedByte" />
+                                                                                                            </xs:sequence>
+                                                                                                        </xs:complexType>
+                                                                                                    </xs:element>
+                                                                                                </xs:sequence>
+                                                                                                <xs:attribute name="id" type="xs:unsignedByte" use="required" />
+                                                                                            </xs:complexType>
+                                                                                        </xs:element>
+                                                                                        <xs:element name="customer">
+                                                                                            <xs:complexType>
+                                                                                                <xs:sequence>
+                                                                                                    <xs:element name="name" type="xs:string" />
+                                                                                                    <xs:element name="surname" type="xs:string" />
+                                                                                                    <xs:element name="phoneNumber" type="xs:unsignedInt" />
+                                                                                                    <xs:element name="email" type="xs:string" />
+                                                                                                    <xs:element name="balance" type="xs:decimal" />
+                                                                                                    <xs:element name="subscription" type="xs:boolean" />
+                                                                                                </xs:sequence>
+                                                                                                <xs:attribute name="id" type="xs:unsignedByte" use="required" />
+                                                                                            </xs:complexType>
+                                                                                        </xs:element>
+                                                                                        <xs:element name="totalPrice" type="xs:decimal" />
+                                                                                        <xs:element name="products">
+                                                                                            <xs:complexType>
+                                                                                                <xs:sequence>
+                                                                                                    <xs:element maxOccurs="unbounded" name="product">
+                                                                                                        <xs:complexType>
+                                                                                                            <xs:sequence>
+                                                                                                                <xs:element name="name" type="xs:string" />
+                                                                                                                <xs:element name="price" type="xs:decimal" />
+                                                                                                                <xs:element name="description" type="xs:string" />
+                                                                                                                <xs:element name="available" type="xs:boolean" />
+                                                                                                            </xs:sequence>
+                                                                                                            <xs:attribute name="id" type="xs:unsignedByte" use="required" />
+                                                                                                        </xs:complexType>
+                                                                                                    </xs:element>
+                                                                                                </xs:sequence>
+                                                                                            </xs:complexType>
+                                                                                        </xs:element>
+                                                                                        <xs:element name="takeAddress" type="xs:string" />
+                                                                                        <xs:element name="bringAddress" type="xs:string" />
+                                                                                        <xs:element name="finished" type="xs:boolean" />
+                                                                                        <xs:element name="orderDateTime" type="xs:dateTime" />
+                                                                                    </xs:sequence>
+                                                                                    <xs:attribute name="id" type="xs:unsignedByte" use="required" />
+                                                                                </xs:complexType>
+                                                                            </xs:element>
                                                                         </xs:sequence>
                                                                     </xs:complexType>
                                                                 </xs:element>
                                                             </xs:sequence>
-                                                            <xs:attribute name="id" type="xs:unsignedByte"
-                                                                          use="required"/>
+                                                            <xs:attribute name="id" type="xs:unsignedByte" use="required" />
                                                         </xs:complexType>
                                                     </xs:element>
-                                                    <xs:element name="customer">
-                                                        <xs:complexType>
-                                                            <xs:sequence>
-                                                                <xs:element name="name" type="xs:string"/>
-                                                                <xs:element name="surname" type="xs:string"/>
-                                                                <xs:element name="phoneNumber" type="xs:unsignedInt"/>
-                                                                <xs:element name="email" type="xs:string"/>
-                                                                <xs:element name="balance" type="xs:decimal"/>
-                                                                <xs:element name="subscription" type="xs:boolean"/>
-                                                            </xs:sequence>
-                                                            <xs:attribute name="id" type="xs:unsignedByte"
-                                                                          use="required"/>
-                                                        </xs:complexType>
-                                                    </xs:element>
-                                                    <xs:element name="totalPrice" type="xs:decimal"/>
-                                                    <xs:element maxOccurs="unbounded" name="product">
-                                                        <xs:complexType>
-                                                            <xs:sequence>
-                                                                <xs:element name="name" type="xs:string"/>
-                                                                <xs:element name="price" type="xs:decimal"/>
-                                                                <xs:element name="description" type="xs:string"/>
-                                                                <xs:element name="available" type="xs:boolean"/>
-                                                            </xs:sequence>
-                                                            <xs:attribute name="id" type="xs:unsignedByte"
-                                                                          use="required"/>
-                                                        </xs:complexType>
-                                                    </xs:element>
-                                                    <xs:element name="takeAddress" type="xs:string"/>
-                                                    <xs:element name="bringAddress" type="xs:string"/>
-                                                    <xs:element name="finished" type="xs:boolean"/>
-                                                    <xs:element name="orderDateTime" type="xs:dateTime"/>
                                                 </xs:sequence>
-                                                <xs:attribute name="id" type="xs:unsignedByte" use="required"/>
                                             </xs:complexType>
                                         </xs:element>
                                     </xs:sequence>
-                                    <xs:attribute name="id" type="xs:unsignedByte" use="required"/>
+                                    <xs:attribute name="id" type="xs:unsignedByte" use="required" />
                                 </xs:complexType>
                             </xs:element>
                         </xs:sequence>
-                        <xs:attribute name="id" type="xs:unsignedByte" use="required"/>
                     </xs:complexType>
                 </xs:element>
             </xs:sequence>

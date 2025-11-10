@@ -19,6 +19,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayDeque;
+import java.util.Collection;
 import java.util.Deque;
 import java.util.UUID;
 import java.util.function.BiConsumer;
@@ -139,6 +140,9 @@ public class CustomSaxHandler extends DefaultHandler {
             for (var method : methods) {
                 if (method.getName().equals(methodName) && method.getParameterCount() == 1) {
                     Class<?> paramType = method.getParameterTypes()[0];
+                    if (Collection.class.isAssignableFrom(paramType)){
+                        return;
+                    }
 
                     Object convertedValue = convertValue(value, paramType);
                     method.invoke(object, convertedValue);
