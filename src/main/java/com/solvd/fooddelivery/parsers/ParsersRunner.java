@@ -9,6 +9,8 @@ import com.solvd.fooddelivery.parsers.saxparser.handler.CustomSaxHandler;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -33,11 +35,13 @@ public class ParsersRunner {
     private final static String PATH_TO_XML = "src/main/resources/food-delivery.xml";
     private final static String PATH_TO_JSON = "src/main/resources/food-delivery.json";
 
+    private final static Logger log = LogManager.getLogger(ParsersRunner.class);
+
     public static void main(String[] args) {
 
-        System.out.println("Checking with incorrect xsd");
+        log.info("Checking with incorrect xsd");
         saxCheckXmlDueXsd(PATH_TO_XML, PATH_TO_INCORRECT_XSD);
-        System.out.println("Checking with correct xsd");
+        log.info("Checking with correct xsd");
         saxCheckXmlDueXsd(PATH_TO_XML, PATH_TO_CORRECT_XSD);
 
         saxParseXml(PATH_TO_XML);
@@ -58,10 +62,10 @@ public class ParsersRunner {
 
             FoodDelivery foodDelivery = handler.getResult();
 
-            System.out.println(foodDelivery);
+            log.info(foodDelivery);
 
         } catch (Exception e) {
-            System.err.println(e.getCause() + e.getMessage());
+            log.error(e.getCause() + e.getMessage());
         }
     }
 
@@ -85,13 +89,13 @@ public class ParsersRunner {
 
                 @Override
                 public void warning(SAXParseException e) throws SAXException {
-                    System.out.println("Warning: " + e.getMessage());
+                   log.warn("Warning: " + e.getMessage());
                 }
             });
 
-            System.out.println("XML file is valid due to XSD");
+            log.info("XML file is valid due to XSD");
         } catch (SAXException e) {
-            System.err.println("XML is NOT valid: " + e.getMessage());
+            log.error("XML is NOT valid: " + e.getMessage());
         } catch (IOException | ParserConfigurationException e) {
             throw new RuntimeException(e);
         }
@@ -100,10 +104,12 @@ public class ParsersRunner {
     public static void jaxBParseXml(String xmlPath) {
 
         try {
+
             JAXBContext context = JAXBContext.newInstance(FoodDelivery.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
             FoodDelivery foodDelivery = (FoodDelivery) unmarshaller.unmarshal(new File(xmlPath));
-            System.out.println(foodDelivery);
+
+           log.info(foodDelivery);
         } catch (JAXBException e) {
             throw new RuntimeException(e);
         }
@@ -117,7 +123,7 @@ public class ParsersRunner {
             mapper.configure(JsonGenerator.Feature.IGNORE_UNKNOWN, true);
             mapper.registerModule(new JavaTimeModule());
             FoodDelivery foodDelivery = mapper.readValue(new File(jsonPath), FoodDelivery.class);
-            System.out.println(foodDelivery);
+            log.info(foodDelivery);
 
             String json = new String(Files.readAllBytes(Path.of(jsonPath)));
 
