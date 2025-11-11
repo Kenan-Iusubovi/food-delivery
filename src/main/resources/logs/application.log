@@ -1,0 +1,189 @@
+23:05:13.300 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - Checking with incorrect xsd
+23:05:13.336 [main] ERROR com.solvd.fooddelivery.parsers.ParsersRunner - XML is NOT valid: cvc-complex-type.2.4.d: Invalid content was found starting with element 'foodSpot'. No child element is expected at this point.
+23:05:13.336 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - Checking with correct xsd
+23:05:13.343 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - XML file is valid due to XSD
+23:05:13.362 [main] ERROR com.solvd.fooddelivery.parsers.ParsersRunner - nullCannot invoke "java.util.List.add(Object)" because the return value of "com.solvd.fooddelivery.entity.ProductContainer.getProducts()" is null
+23:05:13.448 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - com.solvd.fooddelivery.entity.FoodDelivery@f001896
+23:05:13.554 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - com.solvd.fooddelivery.entity.FoodDelivery@499b2a5c
+23:05:13.577 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 1.Owner Name: John
+23:05:13.577 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 2.Food Spot address: tbilisi vake
+23:05:13.578 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 3.Menu id: 1
+23:05:13.578 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 4.Food Spot opening time: 10:00
+23:05:13.579 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 5.Order number: f47ac10b-58cc-4372-a567-0e02b2c3d479
+23:15:11.354 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - Checking with incorrect xsd
+23:15:11.390 [main] ERROR com.solvd.fooddelivery.parsers.ParsersRunner - XML is NOT valid: cvc-complex-type.2.4.d: Invalid content was found starting with element 'foodSpot'. No child element is expected at this point.
+23:15:11.390 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - Checking with correct xsd
+23:15:11.399 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - XML file is valid due to XSD
+23:15:11.421 [main] ERROR com.solvd.fooddelivery.parsers.ParsersRunner - nullCannot invoke "java.util.List.add(Object)" because the return value of "com.solvd.fooddelivery.entity.ProductContainer.getProducts()" is null
+23:15:11.500 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - com.solvd.fooddelivery.entity.FoodDelivery@1d0d6318
+23:15:11.595 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - com.solvd.fooddelivery.entity.FoodDelivery@499b2a5c
+23:15:11.619 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 1.Owner Name: John
+23:15:11.620 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 2.Food Spot address: tbilisi vake
+23:15:11.620 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 3.Menu id: 1
+23:15:11.620 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 4.Food Spot opening time: 10:00
+23:15:11.621 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 5.Order number: f47ac10b-58cc-4372-a567-0e02b2c3d479
+23:17:38.930 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - Checking with incorrect xsd
+23:17:38.970 [main] ERROR com.solvd.fooddelivery.parsers.ParsersRunner - XML is NOT valid: cvc-complex-type.2.4.d: Invalid content was found starting with element 'foodSpot'. No child element is expected at this point.
+23:17:38.970 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - Checking with correct xsd
+23:17:38.979 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - XML file is valid due to XSD
+23:17:38.999 [main] ERROR com.solvd.fooddelivery.parsers.ParsersRunner - nullCannot invoke "java.util.List.add(Object)" because the return value of "com.solvd.fooddelivery.entity.ProductContainer.getProducts()" is null
+23:17:39.090 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - com.solvd.fooddelivery.entity.FoodDelivery@1d0d6318
+23:17:39.176 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - com.solvd.fooddelivery.entity.FoodDelivery@499b2a5c
+23:17:39.200 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 1.Owner Name: John
+23:17:39.201 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 2.Food Spot address: tbilisi vake
+23:17:39.201 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 3.Menu id: 1
+23:17:39.202 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 4.Food Spot opening time: 10:00
+23:17:39.203 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 5.Order number: f47ac10b-58cc-4372-a567-0e02b2c3d479
+23:17:55.905 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - Checking with incorrect xsd
+23:17:55.940 [main] ERROR com.solvd.fooddelivery.parsers.ParsersRunner - XML is NOT valid: cvc-complex-type.2.4.d: Invalid content was found starting with element 'foodSpot'. No child element is expected at this point.
+23:17:55.941 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - Checking with correct xsd
+23:17:55.947 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - XML file is valid due to XSD
+23:17:55.964 [main] ERROR com.solvd.fooddelivery.parsers.ParsersRunner - nullCannot invoke "java.util.List.add(Object)" because the return value of "com.solvd.fooddelivery.entity.ProductContainer.getProducts()" is null
+23:17:56.042 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - com.solvd.fooddelivery.entity.FoodDelivery@1d0d6318
+23:17:56.141 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - com.solvd.fooddelivery.entity.FoodDelivery@499b2a5c
+23:17:56.163 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 1.Owner Name: John
+23:17:56.163 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 2.Food Spot address: tbilisi vake
+23:17:56.164 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 3.Menu id: 1
+23:17:56.164 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 4.Food Spot opening time: 10:00
+23:17:56.165 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 5.Order number: f47ac10b-58cc-4372-a567-0e02b2c3d479
+23:21:04.931 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - Checking with incorrect xsd
+23:21:04.971 [main] ERROR com.solvd.fooddelivery.parsers.ParsersRunner - XML is NOT valid: cvc-complex-type.2.4.d: Invalid content was found starting with element 'foodSpot'. No child element is expected at this point.
+23:21:04.971 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - Checking with correct xsd
+23:21:04.979 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - XML file is valid due to XSD
+23:21:46.841 [main] ERROR com.solvd.fooddelivery.parsers.ParsersRunner - nullCannot invoke "java.util.List.add(Object)" because the return value of "com.solvd.fooddelivery.entity.ProductContainer.getProducts()" is null
+23:21:46.932 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - com.solvd.fooddelivery.entity.FoodDelivery@7544a1e4
+23:21:47.026 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - com.solvd.fooddelivery.entity.FoodDelivery@21f9277b
+23:21:47.052 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 1.Owner Name: John
+23:21:47.053 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 2.Food Spot address: tbilisi vake
+23:21:47.053 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 3.Menu id: 1
+23:21:47.053 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 4.Food Spot opening time: 10:00
+23:21:47.054 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 5.Order number: f47ac10b-58cc-4372-a567-0e02b2c3d479
+23:22:10.728 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - Checking with incorrect xsd
+23:22:10.772 [main] ERROR com.solvd.fooddelivery.parsers.ParsersRunner - XML is NOT valid: cvc-complex-type.2.4.d: Invalid content was found starting with element 'foodSpot'. No child element is expected at this point.
+23:22:10.772 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - Checking with correct xsd
+23:22:10.779 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - XML file is valid due to XSD
+23:23:03.160 [main] ERROR com.solvd.fooddelivery.parsers.ParsersRunner - nullCannot invoke "java.util.List.add(Object)" because the return value of "com.solvd.fooddelivery.entity.ProductContainer.getProducts()" is null
+23:23:03.253 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - com.solvd.fooddelivery.entity.FoodDelivery@750fe12e
+23:23:03.354 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - com.solvd.fooddelivery.entity.FoodDelivery@6090f3ca
+23:23:03.380 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 1.Owner Name: John
+23:23:03.380 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 2.Food Spot address: tbilisi vake
+23:23:03.381 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 3.Menu id: 1
+23:23:03.381 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 4.Food Spot opening time: 10:00
+23:23:03.382 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 5.Order number: f47ac10b-58cc-4372-a567-0e02b2c3d479
+23:31:53.382 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - Checking with incorrect xsd
+23:31:53.420 [main] ERROR com.solvd.fooddelivery.parsers.ParsersRunner - XML is NOT valid: cvc-complex-type.2.4.d: Invalid content was found starting with element 'foodSpot'. No child element is expected at this point.
+23:31:53.420 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - Checking with correct xsd
+23:31:53.428 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - XML file is valid due to XSD
+23:31:53.443 [main] ERROR com.solvd.fooddelivery.parsers.saxparser.handler.CustomSaxHandler - com.solvd.fooddelivery.entity.FoodDelivery.getdSpotOwners()
+23:31:53.444 [main] ERROR com.solvd.fooddelivery.parsers.saxparser.handler.CustomSaxHandler - com.solvd.fooddelivery.entity.human.FoodSpotOwner.getdSpots()
+23:31:53.447 [main] ERROR com.solvd.fooddelivery.parsers.saxparser.handler.CustomSaxHandler - com.solvd.fooddelivery.entity.foodspot.FoodSpot.getus()
+23:31:53.447 [main] ERROR com.solvd.fooddelivery.parsers.saxparser.handler.CustomSaxHandler - com.solvd.fooddelivery.entity.foodspot.FoodSpot.geters()
+23:31:53.447 [main] ERROR com.solvd.fooddelivery.parsers.saxparser.handler.CustomSaxHandler - com.solvd.fooddelivery.entity.foodspot.Menu.getducts()
+23:31:53.451 [main] ERROR com.solvd.fooddelivery.parsers.ParsersRunner - nullCannot invoke "java.util.List.add(Object)" because the return value of "com.solvd.fooddelivery.entity.ProductContainer.getProducts()" is null
+23:31:53.533 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - com.solvd.fooddelivery.entity.FoodDelivery@4409e975
+23:31:53.627 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - com.solvd.fooddelivery.entity.FoodDelivery@2db2cd5
+23:31:53.651 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 1.Owner Name: John
+23:31:53.651 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 2.Food Spot address: tbilisi vake
+23:31:53.652 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 3.Menu id: 1
+23:31:53.652 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 4.Food Spot opening time: 10:00
+23:31:53.653 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 5.Order number: f47ac10b-58cc-4372-a567-0e02b2c3d479
+23:32:02.869 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - Checking with incorrect xsd
+23:32:02.910 [main] ERROR com.solvd.fooddelivery.parsers.ParsersRunner - XML is NOT valid: cvc-complex-type.2.4.d: Invalid content was found starting with element 'foodSpot'. No child element is expected at this point.
+23:32:02.910 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - Checking with correct xsd
+23:32:02.917 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - XML file is valid due to XSD
+23:33:02.057 [main] ERROR com.solvd.fooddelivery.parsers.saxparser.handler.CustomSaxHandler - com.solvd.fooddelivery.entity.FoodDelivery.getdSpotOwners()
+23:33:02.059 [main] ERROR com.solvd.fooddelivery.parsers.saxparser.handler.CustomSaxHandler - com.solvd.fooddelivery.entity.human.FoodSpotOwner.getdSpots()
+23:33:02.061 [main] ERROR com.solvd.fooddelivery.parsers.saxparser.handler.CustomSaxHandler - com.solvd.fooddelivery.entity.foodspot.FoodSpot.getus()
+23:33:02.062 [main] ERROR com.solvd.fooddelivery.parsers.saxparser.handler.CustomSaxHandler - com.solvd.fooddelivery.entity.foodspot.FoodSpot.geters()
+23:33:02.063 [main] ERROR com.solvd.fooddelivery.parsers.saxparser.handler.CustomSaxHandler - com.solvd.fooddelivery.entity.foodspot.Menu.getducts()
+23:33:02.067 [main] ERROR com.solvd.fooddelivery.parsers.ParsersRunner - nullCannot invoke "java.util.List.add(Object)" because the return value of "com.solvd.fooddelivery.entity.ProductContainer.getProducts()" is null
+23:33:12.945 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - Checking with incorrect xsd
+23:33:12.985 [main] ERROR com.solvd.fooddelivery.parsers.ParsersRunner - XML is NOT valid: cvc-complex-type.2.4.d: Invalid content was found starting with element 'foodSpot'. No child element is expected at this point.
+23:33:12.985 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - Checking with correct xsd
+23:33:12.994 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - XML file is valid due to XSD
+23:33:14.944 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - Checking with incorrect xsd
+23:33:14.979 [main] ERROR com.solvd.fooddelivery.parsers.ParsersRunner - XML is NOT valid: cvc-complex-type.2.4.d: Invalid content was found starting with element 'foodSpot'. No child element is expected at this point.
+23:33:14.980 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - Checking with correct xsd
+23:33:14.987 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - XML file is valid due to XSD
+23:33:15.016 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - com.solvd.fooddelivery.entity.FoodDelivery@7e19ebf0
+23:33:15.090 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - com.solvd.fooddelivery.entity.FoodDelivery@20f12539
+23:33:15.183 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - com.solvd.fooddelivery.entity.FoodDelivery@6ce1f601
+23:33:15.208 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 1.Owner Name: John
+23:33:15.209 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 2.Food Spot address: tbilisi vake
+23:33:15.209 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 3.Menu id: 1
+23:33:15.210 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 4.Food Spot opening time: 10:00
+23:33:15.211 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 5.Order number: f47ac10b-58cc-4372-a567-0e02b2c3d479
+23:33:31.801 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - Checking with incorrect xsd
+23:33:31.844 [main] ERROR com.solvd.fooddelivery.parsers.ParsersRunner - XML is NOT valid: cvc-complex-type.2.4.d: Invalid content was found starting with element 'foodSpot'. No child element is expected at this point.
+23:33:31.844 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - Checking with correct xsd
+23:33:31.853 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - XML file is valid due to XSD
+23:35:01.301 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - Checking with incorrect xsd
+23:35:01.342 [main] ERROR com.solvd.fooddelivery.parsers.ParsersRunner - XML is NOT valid: cvc-complex-type.2.4.d: Invalid content was found starting with element 'foodSpot'. No child element is expected at this point.
+23:35:01.343 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - Checking with correct xsd
+23:35:01.350 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - XML file is valid due to XSD
+23:35:06.879 [main] ERROR com.solvd.fooddelivery.parsers.saxparser.handler.CustomSaxHandler - com.solvd.fooddelivery.entity.FoodDelivery.setFoodSpotOwners()
+23:35:56.090 [main] ERROR com.solvd.fooddelivery.parsers.saxparser.handler.CustomSaxHandler - com.solvd.fooddelivery.entity.human.FoodSpotOwner.setFoodSpots()
+23:35:56.095 [main] ERROR com.solvd.fooddelivery.parsers.saxparser.handler.CustomSaxHandler - com.solvd.fooddelivery.entity.foodspot.FoodSpot.setMenus()
+23:35:56.096 [main] ERROR com.solvd.fooddelivery.parsers.saxparser.handler.CustomSaxHandler - com.solvd.fooddelivery.entity.foodspot.FoodSpot.setOrders()
+23:35:56.098 [main] ERROR com.solvd.fooddelivery.parsers.saxparser.handler.CustomSaxHandler - com.solvd.fooddelivery.entity.foodspot.Menu.setProducts()
+23:35:58.251 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - Checking with incorrect xsd
+23:35:58.293 [main] ERROR com.solvd.fooddelivery.parsers.ParsersRunner - XML is NOT valid: cvc-complex-type.2.4.d: Invalid content was found starting with element 'foodSpot'. No child element is expected at this point.
+23:35:58.293 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - Checking with correct xsd
+23:35:58.301 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - XML file is valid due to XSD
+23:36:56.888 [main] ERROR com.solvd.fooddelivery.parsers.saxparser.handler.CustomSaxHandler - com.solvd.fooddelivery.entity.FoodDelivery.FoodSpotOwners()
+23:37:02.419 [main] ERROR com.solvd.fooddelivery.parsers.saxparser.handler.CustomSaxHandler - com.solvd.fooddelivery.entity.human.FoodSpotOwner.FoodSpots()
+23:37:02.422 [main] ERROR com.solvd.fooddelivery.parsers.saxparser.handler.CustomSaxHandler - com.solvd.fooddelivery.entity.foodspot.FoodSpot.Menus()
+23:37:02.422 [main] ERROR com.solvd.fooddelivery.parsers.saxparser.handler.CustomSaxHandler - com.solvd.fooddelivery.entity.foodspot.FoodSpot.Orders()
+23:37:02.423 [main] ERROR com.solvd.fooddelivery.parsers.saxparser.handler.CustomSaxHandler - com.solvd.fooddelivery.entity.foodspot.Menu.Products()
+23:37:02.427 [main] ERROR com.solvd.fooddelivery.parsers.ParsersRunner - nullCannot invoke "java.util.List.add(Object)" because the return value of "com.solvd.fooddelivery.entity.ProductContainer.getProducts()" is null
+23:37:03.600 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - Checking with incorrect xsd
+23:37:03.645 [main] ERROR com.solvd.fooddelivery.parsers.ParsersRunner - XML is NOT valid: cvc-complex-type.2.4.d: Invalid content was found starting with element 'foodSpot'. No child element is expected at this point.
+23:37:03.645 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - Checking with correct xsd
+23:37:03.654 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - XML file is valid due to XSD
+23:37:40.919 [main] ERROR com.solvd.fooddelivery.parsers.saxparser.handler.CustomSaxHandler - com.solvd.fooddelivery.entity.FoodDelivery.FoodSpotOwners()
+23:37:40.921 [main] ERROR com.solvd.fooddelivery.parsers.saxparser.handler.CustomSaxHandler - com.solvd.fooddelivery.entity.human.FoodSpotOwner.FoodSpots()
+23:37:40.923 [main] ERROR com.solvd.fooddelivery.parsers.saxparser.handler.CustomSaxHandler - com.solvd.fooddelivery.entity.foodspot.FoodSpot.Menus()
+23:37:40.923 [main] ERROR com.solvd.fooddelivery.parsers.saxparser.handler.CustomSaxHandler - com.solvd.fooddelivery.entity.foodspot.FoodSpot.Orders()
+23:37:40.924 [main] ERROR com.solvd.fooddelivery.parsers.saxparser.handler.CustomSaxHandler - com.solvd.fooddelivery.entity.foodspot.Menu.Products()
+23:37:40.927 [main] ERROR com.solvd.fooddelivery.parsers.ParsersRunner - nullCannot invoke "java.util.List.add(Object)" because the return value of "com.solvd.fooddelivery.entity.ProductContainer.getProducts()" is null
+23:37:43.015 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - Checking with incorrect xsd
+23:37:43.057 [main] ERROR com.solvd.fooddelivery.parsers.ParsersRunner - XML is NOT valid: cvc-complex-type.2.4.d: Invalid content was found starting with element 'foodSpot'. No child element is expected at this point.
+23:37:43.057 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - Checking with correct xsd
+23:37:43.065 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - XML file is valid due to XSD
+23:41:05.872 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - com.solvd.fooddelivery.entity.FoodDelivery@8eb6bb0
+23:41:07.989 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - Checking with incorrect xsd
+23:41:08.033 [main] ERROR com.solvd.fooddelivery.parsers.ParsersRunner - XML is NOT valid: cvc-complex-type.2.4.d: Invalid content was found starting with element 'foodSpot'. No child element is expected at this point.
+23:41:08.033 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - Checking with correct xsd
+23:41:08.041 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - XML file is valid due to XSD
+23:41:17.980 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - com.solvd.fooddelivery.entity.FoodDelivery@1b1b0dea
+23:41:18.066 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - com.solvd.fooddelivery.entity.FoodDelivery@4e9658b5
+23:41:18.161 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - com.solvd.fooddelivery.entity.FoodDelivery@72ed9aad
+23:41:18.189 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 1.Owner Name: John
+23:41:18.189 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 2.Food Spot address: tbilisi vake
+23:41:18.189 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 3.Menu id: 1
+23:41:18.190 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 4.Food Spot opening time: 10:00
+23:41:18.191 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 5.Order number: f47ac10b-58cc-4372-a567-0e02b2c3d479
+23:43:11.904 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - Checking with incorrect xsd
+23:43:11.940 [main] ERROR com.solvd.fooddelivery.parsers.ParsersRunner - XML is NOT valid: cvc-complex-type.2.4.d: Invalid content was found starting with element 'foodSpot'. No child element is expected at this point.
+23:43:11.940 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - Checking with correct xsd
+23:43:11.947 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - XML file is valid due to XSD
+23:43:11.974 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - com.solvd.fooddelivery.entity.FoodDelivery@7e19ebf0
+23:43:12.051 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - com.solvd.fooddelivery.entity.FoodDelivery@20f12539
+23:43:12.145 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - com.solvd.fooddelivery.entity.FoodDelivery@6ce1f601
+23:43:12.166 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 1.Owner Name: John
+23:43:12.167 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 2.Food Spot address: tbilisi vake
+23:43:12.167 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 3.Menu id: 1
+23:43:12.168 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 4.Food Spot opening time: 10:00
+23:43:12.168 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 5.Order number: f47ac10b-58cc-4372-a567-0e02b2c3d479
+23:43:49.956 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - Checking with incorrect xsd
+23:43:49.993 [main] ERROR com.solvd.fooddelivery.parsers.ParsersRunner - XML is NOT valid: cvc-complex-type.2.4.d: Invalid content was found starting with element 'foodSpot'. No child element is expected at this point.
+23:43:49.994 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - Checking with correct xsd
+23:43:50.001 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - XML file is valid due to XSD
+23:43:50.027 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - com.solvd.fooddelivery.entity.FoodDelivery@7e19ebf0
+23:43:50.107 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - com.solvd.fooddelivery.entity.FoodDelivery@20f12539
+23:43:50.203 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - com.solvd.fooddelivery.entity.FoodDelivery@6ce1f601
+23:43:50.228 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 1.Owner Name: John
+23:43:50.229 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 2.Food Spot address: tbilisi vake
+23:43:50.229 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 3.Menu id: 1
+23:43:50.229 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 4.Food Spot opening time: 10:00
+23:43:50.230 [main] INFO  com.solvd.fooddelivery.parsers.ParsersRunner - 5.Order number: f47ac10b-58cc-4372-a567-0e02b2c3d479

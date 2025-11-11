@@ -9,8 +9,8 @@ import com.solvd.fooddelivery.parsers.saxparser.handler.CustomSaxHandler;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -89,7 +89,7 @@ public class ParsersRunner {
 
                 @Override
                 public void warning(SAXParseException e) throws SAXException {
-                   log.warn("Warning: " + e.getMessage());
+                    log.warn("Warning: " + e.getMessage());
                 }
             });
 
@@ -109,7 +109,7 @@ public class ParsersRunner {
             Unmarshaller unmarshaller = context.createUnmarshaller();
             FoodDelivery foodDelivery = (FoodDelivery) unmarshaller.unmarshal(new File(xmlPath));
 
-           log.info(foodDelivery);
+            log.info(foodDelivery);
         } catch (JAXBException e) {
             throw new RuntimeException(e);
         }
@@ -128,22 +128,22 @@ public class ParsersRunner {
             String json = new String(Files.readAllBytes(Path.of(jsonPath)));
 
             String ownerName = JsonPath.read(json, "$.foodSpotOwners[0].name");
-            System.out.println("1.Owner Name: " + ownerName);
+            log.info("1.Owner Name: " + ownerName);
 
             String foodSpotAddress = JsonPath.read(json,
                     "$.foodSpotOwners[0].foodSpots[0].address");
-            System.out.println("2.Food Spot address: " + foodSpotAddress);
+            log.info("2.Food Spot address: " + foodSpotAddress);
 
             String menuId = JsonPath.read(json, "$.foodSpotOwners[0].foodSpots[0].menus[0].id");
-            System.out.println("3.Menu id: " + menuId);
+            log.info("3.Menu id: " + menuId);
 
             LocalTime foodSpotOpeningTime = LocalTime.parse(JsonPath.read(json,
                     "$.foodSpotOwners[0].foodSpots[0].openingTime"));
-            System.out.println("4.Food Spot opening time: " + foodSpotOpeningTime);
+            log.info("4.Food Spot opening time: " + foodSpotOpeningTime);
 
             UUID orderNumber = UUID.fromString(JsonPath.read(json, "$.foodSpotOwners[0]." +
                     "foodSpots[0].orders[0].orderNumber"));
-            System.out.println("5.Order number: " + orderNumber);
+            log.info("5.Order number: " + orderNumber);
 
         } catch (IOException e) {
             throw new RuntimeException(e);
