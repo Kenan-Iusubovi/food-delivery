@@ -1,0 +1,98 @@
+{
+  "foodSpotOwners": [
+    {
+      "id": "1",
+      "name": "John",
+      "surname": "Johns",
+      "phoneNumber": "1500000",
+      "email": "json@mail.tr",
+      "businessLicense": "Bus-666220-KL",
+      "foodSpots": [
+        {
+          "id": "1",
+          "name": "McDonald's",
+          "address": "tbilisi vake",
+          "phoneNumber": "032656",
+          "menus": [
+            {
+              "id": "1",
+              "name": "burgers",
+              "products": [
+                {
+                  "id": "1",
+                  "name": "hachapuri",
+                  "price": "3.36",
+                  "description": "best food bin the world",
+                  "available": "true"
+                },
+                {
+                  "id": "2",
+                  "name": "chinkali",
+                  "price": "4.50",
+                  "description": "like hachapuri but better",
+                  "available": "true"
+                }
+              ]
+            },
+            {
+              "id": "2",
+              "name": "drinks",
+              "products": [
+                {
+                  "id": "3",
+                  "name": "Coca Cola",
+                  "price": "1.80",
+                  "description": "coca-cola",
+                  "available": "true"
+                }
+              ]
+            }
+          ],
+          "openingTime": "10:00:00",
+          "closingTime": "22:00:00",
+          "orders": [
+            {
+              "id": "1",
+              "orderNumber": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+              "courier": {
+                "id": 1,
+                "name": "Vasya",
+                "surname": "Pupkin",
+                "phoneNumber": "56465564",
+                "email": "mail.com",
+                "licenseNumber": "AA-9663366BD4",
+                "workingExperience": {
+                  "years": "9",
+                  "months": "13",
+                  "days": "20"
+                }
+              },
+              "customer": {
+                "name": "gela",
+                "surname": "gelashvili",
+                "phoneNumber": "456456",
+                "email": "gmail.ge",
+                "balance": "14545.36",
+                "subscription": "true"
+              },
+              "totalPrice": "26.85",
+              "products": [
+                {
+                  "id": "9",
+                  "name": "pizza",
+                  "price": "26.85",
+                  "description": "it is pizza bro",
+                  "available": "true"
+                }
+              ],
+              "takeAddress": "tbilisi vake",
+              "bringAddress": "Solvd office",
+              "finished": "true",
+              "orderDateTime": "2025-10-31T14:34:23"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
