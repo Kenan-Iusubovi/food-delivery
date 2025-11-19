@@ -1,4 +1,3 @@
--- MySQL Script FIXED (unique foreign key names)
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
@@ -7,7 +6,6 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 CREATE SCHEMA IF NOT EXISTS `food_delivery` DEFAULT CHARACTER SET utf8 ;
 USE `food_delivery` ;
 
--- menus
 CREATE TABLE IF NOT EXISTS `menus` (
                                        `id` BIGINT NOT NULL AUTO_INCREMENT,
                                        `name` VARCHAR(45) NOT NULL,
@@ -15,7 +13,6 @@ CREATE TABLE IF NOT EXISTS `menus` (
                                        UNIQUE INDEX `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB;
 
--- products
 CREATE TABLE IF NOT EXISTS `products` (
                                           `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
                                           `name` VARCHAR(45) NOT NULL,
@@ -25,7 +22,6 @@ CREATE TABLE IF NOT EXISTS `products` (
                                           PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
 
--- couriers
 CREATE TABLE IF NOT EXISTS `couriers` (
                                           `id` BIGINT NOT NULL AUTO_INCREMENT,
                                           `name` VARCHAR(45) NOT NULL,
@@ -43,7 +39,6 @@ CREATE TABLE IF NOT EXISTS `couriers` (
                                           UNIQUE INDEX `license_number_UNIQUE` (`license_number`)
 ) ENGINE=InnoDB;
 
--- customers
 CREATE TABLE IF NOT EXISTS `customers` (
                                            `id` BIGINT NOT NULL AUTO_INCREMENT,
                                            `name` VARCHAR(45) NOT NULL,
@@ -58,7 +53,6 @@ CREATE TABLE IF NOT EXISTS `customers` (
                                            UNIQUE INDEX `email_UNIQUE` (`email`)
 ) ENGINE=InnoDB;
 
--- orders
 CREATE TABLE IF NOT EXISTS `orders` (
                                         `id` BIGINT NOT NULL AUTO_INCREMENT,
                                         `order_number` VARCHAR(45) NOT NULL,
@@ -87,7 +81,6 @@ CREATE TABLE IF NOT EXISTS `orders` (
                                                 ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB;
 
--- food_spots
 CREATE TABLE IF NOT EXISTS `food_spots` (
                                             `id` BIGINT NOT NULL,
                                             `name` VARCHAR(45) NOT NULL,
@@ -112,7 +105,6 @@ CREATE TABLE IF NOT EXISTS `food_spots` (
                                                     ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB;
 
--- food_spot_owners
 CREATE TABLE IF NOT EXISTS `food_spot_owners` (
                                                   `id` BIGINT NOT NULL AUTO_INCREMENT,
                                                   `name` VARCHAR(45) NOT NULL,
@@ -132,7 +124,6 @@ CREATE TABLE IF NOT EXISTS `food_spot_owners` (
                                                           ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB;
 
--- menus_has_products
 CREATE TABLE IF NOT EXISTS `menus_has_products` (
                                                     `menu_id` BIGINT NOT NULL,
                                                     `product_id` BIGINT UNSIGNED NOT NULL,
