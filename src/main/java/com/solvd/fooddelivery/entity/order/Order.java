@@ -5,7 +5,7 @@ import com.solvd.fooddelivery.entity.ProductContainer;
 import com.solvd.fooddelivery.entity.foodspot.Product;
 import com.solvd.fooddelivery.entity.human.Customer;
 import com.solvd.fooddelivery.entity.human.courier.Courier;
-import com.solvd.fooddelivery.parsers.jaxbframework.adapter.LocalDateTimeAdapter;
+import com.solvd.fooddelivery.utils.parsers.jaxbframework.adapter.LocalDateTimeAdapter;
 import jakarta.xml.bind.annotation.*;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 

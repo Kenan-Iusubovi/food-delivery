@@ -3,7 +3,7 @@ package com.solvd.fooddelivery.entity.foodspot;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.solvd.fooddelivery.entity.order.Order;
-import com.solvd.fooddelivery.parsers.jaxbframework.adapter.LocalTimeAdapter;
+import com.solvd.fooddelivery.utils.parsers.jaxbframework.adapter.LocalTimeAdapter;
 import jakarta.xml.bind.annotation.*;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 

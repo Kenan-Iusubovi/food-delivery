@@ -1,4 +1,4 @@
-package com.solvd.fooddelivery.parsers.saxparser.handler;
+package com.solvd.fooddelivery.utils.parsers.saxparser.handler;
 
 import com.solvd.fooddelivery.entity.FoodDelivery;
 import com.solvd.fooddelivery.entity.ProductContainer;
