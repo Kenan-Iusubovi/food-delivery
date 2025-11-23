@@ -1,9 +1,11 @@
 package com.solvd.fooddelivery.repository.impl;
 
 import com.solvd.fooddelivery.entity.foodspot.Product;
+import com.solvd.fooddelivery.entity.human.Customer;
 import com.solvd.fooddelivery.repository.CrudRepository;
 import com.solvd.fooddelivery.repository.connection.ConnectionPool;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class ProductRepository implements CrudRepository<Product, Long> {
+public class CustomerRepository implements CrudRepository<Customer, Long> {
 
     private static final ConnectionPool CONNECTION_POOL;
     private static final String CREATE_QUERY;
@@ -25,29 +27,32 @@ public class ProductRepository implements CrudRepository<Product, Long> {
     static {
         CONNECTION_POOL = ConnectionPool.getInstance();
 
-        CREATE_QUERY = "insert into products (name, price, description, available) values (?, ?, ?, ?)";
+        CREATE_QUERY = "insert into customers (name, surname, email, balance, subscription)" +
+                " values (?, ?, ?, ?, ?)";
 
-        FIND_BY_ID_QUERY = "select p.id, p.name, p.price, p.description," +
-                " p.available from products p where p.id = ?";
+        FIND_BY_ID_QUERY = "select c.id, c.name, c.surname, c.phone_number, c.email, c.balance, c.subscription"
+                + " from customers c where c.id = ?";
 
-        FIND_ALL_QUERY = "select id, name, price, description, available from products";
+        FIND_ALL_QUERY = "select id, name, surname, phone_number, email, balance, subscription from customers";
 
-        UPDATE_QUERY = "update products set name = ?, price = ?, description = ?, available = ? where id = ?";
+        UPDATE_QUERY = "update customers set name = ?, surname = ?, phone_number = ?, email = ?, " +
+                "balance = ?, subscription = ? where id = ?";
 
-        DELETE_QUERY = "delete from products where id = ?";
+        DELETE_QUERY = "delete from customers where id = ?";
     }
 
     @Override
-    public boolean create(Product entity) {
+    public boolean create(Customer entity) {
 
         Connection connection = CONNECTION_POOL.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(
                 CREATE_QUERY, PreparedStatement.RETURN_GENERATED_KEYS)) {
 
             statement.setString(1, entity.getName());
-            statement.setBigDecimal(2, entity.getPrice());
-            statement.setString(3, entity.getDescription());
-            statement.setBoolean(4, entity.isAvailable());
+            statement.setString(2, entity.getSurname());
+            statement.setString(3, entity.getEmail());
+            statement.setBigDecimal(4, BigDecimal.valueOf(0));
+            statement.setBoolean(5,false);
 
             statement.executeUpdate();
             ResultSet result = statement.getGeneratedKeys();
@@ -63,60 +68,61 @@ public class ProductRepository implements CrudRepository<Product, Long> {
     }
 
     @Override
-    public Optional<Product> findById(Long id) {
+    public Optional<Customer> findById(Long id) {
 
         Connection connection = CONNECTION_POOL.getConnection();
-        Product product = null;
+        Customer customer = null;
         try (PreparedStatement statement = connection.prepareStatement(FIND_BY_ID_QUERY)) {
 
             statement.setLong(1, id);
 
             ResultSet result = statement.executeQuery();
             if (result.next()) {
-                product = mapToProduct(result);
+                customer = mapToCustomer(result);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
             CONNECTION_POOL.releaseConnection(connection);
         }
-        return Optional.ofNullable(product);
+        return Optional.ofNullable(customer);
     }
 
     @Override
-    public List<Product> findAll() {
+    public List<Customer> findAll() {
 
         Connection connection = CONNECTION_POOL.getConnection();
-        List<Product> products;
+        List<Customer> customers;
         try (PreparedStatement statement = connection.prepareStatement(FIND_ALL_QUERY)) {
 
             ResultSet result = statement.executeQuery();
-            products = mapToProductsList(result);
+            customers = mapToCustomerList(result);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
             CONNECTION_POOL.releaseConnection(connection);
         }
-        return products;
+        return customers;
     }
 
     @Override
-    public boolean update(Product entity) {
+    public boolean update(Customer entity) {
 
         Connection connection = CONNECTION_POOL.getConnection();
-
-        try (PreparedStatement statement = connection.prepareStatement(UPDATE_QUERY)) {
+        try (PreparedStatement statement = connection.prepareStatement(UPDATE_QUERY)){
 
             statement.setString(1, entity.getName());
-            statement.setBigDecimal(2, entity.getPrice());
-            statement.setString(3, entity.getDescription());
-            statement.setBoolean(4, entity.isAvailable());
-            statement.setLong(5, entity.getId());
+            statement.setString(2, entity.getSurname());
+            statement.setString(3, entity.getPhoneNumber());
+            statement.setString(4, entity.getEmail());
+            statement.setBigDecimal(5, entity.getBalance());
+            statement.setBoolean(6, entity.isSubscription());
+            statement.setLong(7, entity.getId());
 
             return statement.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } finally {
+        }finally {
             CONNECTION_POOL.releaseConnection(connection);
         }
     }
@@ -125,38 +131,38 @@ public class ProductRepository implements CrudRepository<Product, Long> {
     public boolean deleteById(Long id) {
 
         Connection connection = CONNECTION_POOL.getConnection();
-
-        try (PreparedStatement statement = connection.prepareStatement(DELETE_QUERY)) {
+        try (PreparedStatement statement = connection.prepareStatement(DELETE_QUERY)){
 
             statement.setLong(1, id);
 
             return statement.executeUpdate() > 0;
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } finally {
+        }finally {
             CONNECTION_POOL.releaseConnection(connection);
         }
     }
 
-    public Product mapToProduct(ResultSet resultSet) throws SQLException {
+    public Customer mapToCustomer(ResultSet resultSet) throws SQLException {
 
-        Product product = new Product();
-        product.setId(resultSet.getLong("id"));
-        product.setName(resultSet.getString("name"));
-        product.setPrice(resultSet.getBigDecimal("price"));
-        product.setDescription(resultSet.getString("description"));
-        product.setAvailable(resultSet.getBoolean("available"));
+        Customer customer = new Customer();
+        customer.setId(resultSet.getLong("id"));
+        customer.setName(resultSet.getString("name"));
+        customer.setSurname(resultSet.getString("surname"));
+        customer.setPhoneNumber(resultSet.getString("phone_number"));
+        customer.setEmail(resultSet.getString("email"));
+        customer.setBalance(resultSet.getBigDecimal("balance"));
+        customer.setSubscription(resultSet.getBoolean("subscription"));
 
-        return product;
+        return customer;
     }
 
-    public List<Product> mapToProductsList(ResultSet resultSet) throws SQLException {
+    public List<Customer> mapToCustomerList(ResultSet resultSet) throws SQLException {
 
-        List<Product> products = new ArrayList<>();
+        List<Customer> customers = new ArrayList<>();
         while (resultSet.next()) {
-            products.add(mapToProduct(resultSet));
+            customers.add(mapToCustomer(resultSet));
         }
-        return products;
+        return customers;
     }
 }
