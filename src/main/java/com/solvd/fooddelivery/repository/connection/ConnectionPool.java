@@ -13,8 +13,8 @@ public class ConnectionPool {
 
     private final List<Connection> connections;
 
-    private ConnectionPool(){
-        try{
+    private ConnectionPool() {
+        try {
             Class.forName(Config.DRIVER.getValue());
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -41,10 +41,10 @@ public class ConnectionPool {
     }
 
     public Connection getConnection() {
-        synchronized (connections){
-            if (connections.isEmpty()){
+        synchronized (connections) {
+            if (connections.isEmpty()) {
                 try {
-                    while (connections.isEmpty()){
+                    while (connections.isEmpty()) {
                         connections.wait();
                     }
                 } catch (InterruptedException e) {
@@ -57,17 +57,17 @@ public class ConnectionPool {
 
     public static synchronized ConnectionPool getInstance() {
 
-        if (instance == null){
+        if (instance == null) {
             instance = new ConnectionPool();
         }
         return instance;
     }
 
-    public void releaseConnection(Connection connection){
-        if (connection == null){
+    public void releaseConnection(Connection connection) {
+        if (connection == null) {
             throw new RuntimeException("Connection is null");
         }
-        synchronized (connections){
+        synchronized (connections) {
             connections.add(connection);
             connections.notifyAll();
         }

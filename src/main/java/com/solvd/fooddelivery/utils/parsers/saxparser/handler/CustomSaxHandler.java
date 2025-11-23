@@ -157,7 +157,7 @@ public class CustomSaxHandler extends DefaultHandler {
         } catch (Exception e) {
             throw new RuntimeException("Failed to set field " + value + " on " +
                     object.getClass().getSimpleName() + ": " + e.getMessage()
-            + " details:" + e.getMessage());
+                    + " details:" + e.getMessage());
         }
     }
 
@@ -181,7 +181,7 @@ public class CustomSaxHandler extends DefaultHandler {
         return null;
     }
 
-    private void initCollection(Object object, Class<?> paramType, Method setMethod , String fieldName) {
+    private void initCollection(Object object, Class<?> paramType, Method setMethod, String fieldName) {
         String getMethodName = "get" + StringUtils.capitalize(fieldName);
         Object collection = null;
         try {
@@ -198,7 +198,7 @@ public class CustomSaxHandler extends DefaultHandler {
                 } else {
                     throw new RuntimeException("Unsupported collection type: " + paramType);
                 }
-                setMethod.invoke(object,collection);
+                setMethod.invoke(object, collection);
             }
         } catch (Exception e) {
             log.error(e.getMessage());

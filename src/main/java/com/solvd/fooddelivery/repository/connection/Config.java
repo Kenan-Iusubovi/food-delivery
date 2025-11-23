@@ -22,7 +22,7 @@ public enum Config {
     private final String key;
     private String defaultValue;
 
-    Config(String key){
+    Config(String key) {
 
         this.key = key;
     }
@@ -35,14 +35,14 @@ public enum Config {
 
     public String getValue() {
 
-        return PROPERTIES.getProperty(key,defaultValue);
+        return PROPERTIES.getProperty(key, defaultValue);
     }
 
-    private static Properties loadProperties(){
+    private static Properties loadProperties() {
 
         Properties config = new Properties();
         try (InputStream inputStream = Config.class.getClassLoader()
-                .getResourceAsStream(CONFIG_FILE_NAME)){
+                .getResourceAsStream(CONFIG_FILE_NAME)) {
 
             config.load(inputStream);
         } catch (IOException e) {
