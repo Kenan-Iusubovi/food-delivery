@@ -1,11 +1,11 @@
-package com.solvd.fooddelivery.parsers;
+package com.solvd.fooddelivery.utils.parsers;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.jayway.jsonpath.JsonPath;
 import com.solvd.fooddelivery.entity.FoodDelivery;
-import com.solvd.fooddelivery.parsers.saxparser.handler.CustomSaxHandler;
+import com.solvd.fooddelivery.utils.parsers.saxparser.handler.CustomSaxHandler;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;

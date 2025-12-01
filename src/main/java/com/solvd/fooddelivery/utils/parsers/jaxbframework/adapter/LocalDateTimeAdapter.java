@@ -1,4 +1,4 @@
-package com.solvd.fooddelivery.parsers.jaxbframework.adapter;
+package com.solvd.fooddelivery.utils.parsers.jaxbframework.adapter;
 
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
