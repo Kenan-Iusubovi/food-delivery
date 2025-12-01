@@ -2,6 +2,7 @@ package com.solvd.fooddelivery.repository.impl;
 
 import com.solvd.fooddelivery.entity.foodspot.Product;
 import com.solvd.fooddelivery.repository.CrudRepository;
+import com.solvd.fooddelivery.repository.ProductRepository;
 import com.solvd.fooddelivery.repository.connection.ConnectionPool;
 import com.solvd.fooddelivery.repository.mappers.ProductMapper;
 
@@ -13,100 +14,113 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class ProductRepositoryImpl implements CrudRepository<Product, Long> {
+public class ProductRepositoryImpl implements ProductRepository, CrudRepository<Product, Long> {
 
-    private static final ConnectionPool CONNECTION_POOL;
-    private static final String CREATE_QUERY;
-    private static final String FIND_BY_ID_QUERY;
-    private static final String FIND_ALL_QUERY;
-    private static final String UPDATE_QUERY;
-    private static final String DELETE_QUERY;
+    private final ConnectionPool connectionPool;
+    private final String createQuery;
+    private final String findByIdQuery;
+    private final String findAllQuery;
+    private final String updateQuery;
+    private final String deleteQuery;
 
+    public ProductRepositoryImpl() {
 
-    static {
-        CONNECTION_POOL = ConnectionPool.getInstance();
+        this.connectionPool = ConnectionPool.getInstance();
 
-        CREATE_QUERY = "insert into products (name, price, description, available) values (?, ?, ?, ?)";
+        this.createQuery =
+                "INSERT INTO products (name, price, description, available) VALUES (?, ?, ?, ?)";
 
-        FIND_BY_ID_QUERY = "select p.id, p.name, p.price, p.description," +
-                " p.available from products p where p.id = ?";
+        this.findByIdQuery =
+                "SELECT id, name, price, description, available FROM products WHERE id = ?";
 
-        FIND_ALL_QUERY = "select id, name, price, description, available from products";
+        this.findAllQuery =
+                "SELECT id, name, price, description, available FROM products";
 
-        UPDATE_QUERY = "update products set name = ?, price = ?, description = ?, available = ? where id = ?";
+        this.updateQuery =
+                "UPDATE products SET name = ?, price = ?, description = ?, available = ? WHERE id = ?";
 
-        DELETE_QUERY = "delete from products where id = ?";
+        this.deleteQuery =
+                "DELETE FROM products WHERE id = ?";
     }
 
     @Override
     public boolean create(Product entity) {
 
-        Connection connection = CONNECTION_POOL.getConnection();
+        Connection connection = connectionPool.getConnection();
+
         try (PreparedStatement statement = connection.prepareStatement(
-                CREATE_QUERY, PreparedStatement.RETURN_GENERATED_KEYS)) {
+                createQuery, PreparedStatement.RETURN_GENERATED_KEYS)) {
 
             statement.setString(1, entity.getName());
             statement.setBigDecimal(2, entity.getPrice());
             statement.setString(3, entity.getDescription());
             statement.setBoolean(4, entity.isAvailable());
-
             statement.executeUpdate();
-            ResultSet result = statement.getGeneratedKeys();
-            while (result.next()) {
-                entity.setId(result.getLong(1));
+
+            ResultSet resultSet = statement.getGeneratedKeys();
+            if (resultSet.next()) {
+                entity.setId(resultSet.getLong(1));
             }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+
+        } catch (SQLException exception) {
+            throw new RuntimeException(exception);
         } finally {
-            CONNECTION_POOL.releaseConnection(connection);
+            connectionPool.releaseConnection(connection);
         }
+
         return entity.getId() != null;
     }
 
     @Override
     public Optional<Product> findById(Long id) {
 
-        Connection connection = CONNECTION_POOL.getConnection();
+        Connection connection = connectionPool.getConnection();
         Product product = null;
-        try (PreparedStatement statement = connection.prepareStatement(FIND_BY_ID_QUERY)) {
+
+        try (PreparedStatement statement = connection.prepareStatement(findByIdQuery)) {
 
             statement.setLong(1, id);
+            ResultSet resultSet = statement.executeQuery();
 
-            ResultSet result = statement.executeQuery();
-            if (result.next()) {
-                product = ProductMapper.mapToProduct(result,"");
+            if (resultSet.next()) {
+                product = ProductMapper.mapToProduct(resultSet, "");
             }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+
+        } catch (SQLException exception) {
+            throw new RuntimeException(exception);
         } finally {
-            CONNECTION_POOL.releaseConnection(connection);
+            connectionPool.releaseConnection(connection);
         }
+
         return Optional.ofNullable(product);
     }
 
     @Override
     public List<Product> findAll() {
 
-        Connection connection = CONNECTION_POOL.getConnection();
+        Connection connection = connectionPool.getConnection();
         List<Product> products;
-        try (PreparedStatement statement = connection.prepareStatement(FIND_ALL_QUERY)) {
 
-            ResultSet result = statement.executeQuery();
-            products = ProductMapper.mapToProductsList(result);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        try (PreparedStatement statement = connection.prepareStatement(findAllQuery)) {
+
+            ResultSet resultSet = statement.executeQuery();
+            products = ProductMapper.mapToProductsList(resultSet);
+
+        } catch (SQLException exception) {
+            throw new RuntimeException(exception);
         } finally {
-            CONNECTION_POOL.releaseConnection(connection);
+            connectionPool.releaseConnection(connection);
         }
+
         return products;
     }
 
     @Override
     public boolean update(Product entity) {
 
-        Connection connection = CONNECTION_POOL.getConnection();
+        Connection connection = connectionPool.getConnection();
 
-        try (PreparedStatement statement = connection.prepareStatement(UPDATE_QUERY)) {
+        try (PreparedStatement statement = connection.prepareStatement(updateQuery)) {
 
             statement.setString(1, entity.getName());
             statement.setBigDecimal(2, entity.getPrice());
@@ -115,29 +129,77 @@ public class ProductRepositoryImpl implements CrudRepository<Product, Long> {
             statement.setLong(5, entity.getId());
 
             return statement.executeUpdate() > 0;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+
+        } catch (SQLException exception) {
+            throw new RuntimeException(exception);
         } finally {
-            CONNECTION_POOL.releaseConnection(connection);
+            connectionPool.releaseConnection(connection);
         }
     }
 
     @Override
     public boolean deleteById(Long id) {
 
-        Connection connection = CONNECTION_POOL.getConnection();
+        Connection connection = connectionPool.getConnection();
 
-        try (PreparedStatement statement = connection.prepareStatement(DELETE_QUERY)) {
+        try (PreparedStatement statement = connection.prepareStatement(deleteQuery)) {
 
             statement.setLong(1, id);
-
             return statement.executeUpdate() > 0;
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        } catch (SQLException exception) {
+            throw new RuntimeException(exception);
         } finally {
-            CONNECTION_POOL.releaseConnection(connection);
+            connectionPool.releaseConnection(connection);
         }
+    }
+
+    @Override
+    public List<Product> findAvailableProducts() {
+
+        Connection connection = connectionPool.getConnection();
+        List<Product> products = new ArrayList<>();
+
+        String query =
+                "SELECT id, name, price, description, available FROM products WHERE available = 1";
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+
+            ResultSet resultSet = statement.executeQuery();
+            products = ProductMapper.mapToProductsList(resultSet);
+
+        } catch (SQLException exception) {
+            throw new RuntimeException(exception);
+        } finally {
+            connectionPool.releaseConnection(connection);
+        }
+
+        return products;
+    }
+
+    @Override
+    public List<Product> findByNameLike(String namePattern) {
+
+        Connection connection = connectionPool.getConnection();
+        List<Product> products = new ArrayList<>();
+
+        String query =
+                "SELECT id, name, price, description, available FROM products WHERE LOWER(name) LIKE LOWER(?)";
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setString(1, "%" + namePattern + "%");
+            ResultSet resultSet = statement.executeQuery();
+
+            products = ProductMapper.mapToProductsList(resultSet);
+
+        } catch (SQLException exception) {
+            throw new RuntimeException(exception);
+        } finally {
+            connectionPool.releaseConnection(connection);
+        }
+
+        return products;
     }
 
     public List<Product> findProductsByIds(List<Long> ids) {
@@ -146,22 +208,22 @@ public class ProductRepositoryImpl implements CrudRepository<Product, Long> {
             return new ArrayList<>();
         }
 
-        Connection connection = CONNECTION_POOL.getConnection();
+        Connection connection = connectionPool.getConnection();
         List<Product> products;
 
-        StringBuilder queryBuilder = new StringBuilder(
+        StringBuilder query = new StringBuilder(
                 "SELECT id, name, price, description, available FROM products WHERE id IN ("
         );
 
         for (int i = 0; i < ids.size(); i++) {
-            queryBuilder.append("?");
+            query.append("?");
             if (i < ids.size() - 1) {
-                queryBuilder.append(", ");
+                query.append(", ");
             }
         }
-        queryBuilder.append(")");
+        query.append(")");
 
-        try (PreparedStatement statement = connection.prepareStatement(queryBuilder.toString())) {
+        try (PreparedStatement statement = connection.prepareStatement(query.toString())) {
 
             for (int i = 0; i < ids.size(); i++) {
                 statement.setLong(i + 1, ids.get(i));
@@ -171,12 +233,11 @@ public class ProductRepositoryImpl implements CrudRepository<Product, Long> {
             products = ProductMapper.mapToProductsList(resultSet);
 
         } catch (SQLException exception) {
-            throw new RuntimeException("Error while finding products by ids", exception);
+            throw new RuntimeException(exception);
         } finally {
-            CONNECTION_POOL.releaseConnection(connection);
+            connectionPool.releaseConnection(connection);
         }
 
         return products;
     }
-
 }

@@ -181,5 +181,4 @@ public class FoodSpotRepositoryImpl implements FoodSpotRepository, CrudRepositor
 
         return foodSpots;
     }
-
 }

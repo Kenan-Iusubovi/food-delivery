@@ -8,10 +8,6 @@ public interface OrderRepository {
 
     List<Order> findOrdersByFoodSpotId(Long foodSpotId);
 
-    List<Order> findOrdersByCustomerId(Long customerId);
-
-    List<Order> findOrdersByCourierId(Long courierId);
-
     List<Order> findFinishedOrders();
 
     List<Order> findUnfinishedOrders();

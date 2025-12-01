@@ -3,6 +3,7 @@ package com.solvd.fooddelivery.repository.impl;
 import com.solvd.fooddelivery.entity.foodspot.Menu;
 import com.solvd.fooddelivery.entity.foodspot.Product;
 import com.solvd.fooddelivery.repository.CrudRepository;
+import com.solvd.fooddelivery.repository.MenuRepository;
 import com.solvd.fooddelivery.repository.connection.ConnectionPool;
 import com.solvd.fooddelivery.repository.mappers.MenuMapper;
 
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class MenuRepositoryImpl implements CrudRepository<Menu, Long> {
+public class MenuRepositoryImpl implements MenuRepository, CrudRepository<Menu, Long> {
 
     private static final ConnectionPool CONNECTION_POOL = ConnectionPool.getInstance();
 
@@ -35,6 +36,12 @@ public class MenuRepositoryImpl implements CrudRepository<Menu, Long> {
 
     private static final String FIND_BY_FOOD_SPOT_ID_QUERY =
             "SELECT id, name FROM menus WHERE food_spot_id = ?";
+
+    private static final String ADD_PRODUCT_TO_MENU_QUERY =
+            "INSERT INTO menus_has_products (menu_id, product_id) VALUES (?, ?)";
+
+    private static final String REMOVE_PRODUCT_FROM_MENU_QUERY =
+            "DELETE FROM menus_has_products WHERE menu_id = ? AND product_id = ?";
 
     private final ProductRepositoryImpl productRepositoryImpl = new ProductRepositoryImpl();
 
@@ -172,6 +179,44 @@ public class MenuRepositoryImpl implements CrudRepository<Menu, Long> {
         return menus;
     }
 
+    @Override
+    public boolean addProductToMenu(Long menuId, Long productId) {
+
+        Connection connection = CONNECTION_POOL.getConnection();
+
+        try (PreparedStatement statement = connection.prepareStatement(ADD_PRODUCT_TO_MENU_QUERY)) {
+
+            statement.setLong(1, menuId);
+            statement.setLong(2, productId);
+
+            return statement.executeUpdate() > 0;
+
+        } catch (SQLException exception) {
+            throw new RuntimeException(exception);
+        } finally {
+            CONNECTION_POOL.releaseConnection(connection);
+        }
+    }
+
+    @Override
+    public boolean removeProductFromMenu(Long menuId, Long productId) {
+
+        Connection connection = CONNECTION_POOL.getConnection();
+
+        try (PreparedStatement statement = connection.prepareStatement(REMOVE_PRODUCT_FROM_MENU_QUERY)) {
+
+            statement.setLong(1, menuId);
+            statement.setLong(2, productId);
+
+            return statement.executeUpdate() > 0;
+
+        } catch (SQLException exception) {
+            throw new RuntimeException(exception);
+        } finally {
+            CONNECTION_POOL.releaseConnection(connection);
+        }
+    }
+    
     private List<Long> findProductIds(Long menuId) {
 
         Connection connection = CONNECTION_POOL.getConnection();

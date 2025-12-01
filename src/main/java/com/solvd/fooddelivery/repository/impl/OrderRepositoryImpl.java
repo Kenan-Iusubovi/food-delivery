@@ -3,7 +3,11 @@ package com.solvd.fooddelivery.repository.impl;
 import com.solvd.fooddelivery.entity.order.Order;
 import com.solvd.fooddelivery.entity.foodspot.Product;
 import com.solvd.fooddelivery.repository.CrudRepository;
+import com.solvd.fooddelivery.repository.OrderRepository;
 import com.solvd.fooddelivery.repository.connection.ConnectionPool;
+import com.solvd.fooddelivery.repository.mappers.CourierMapper;
+import com.solvd.fooddelivery.repository.mappers.CustomerMapper;
+import com.solvd.fooddelivery.repository.mappers.FoodSpotMapper;
 import com.solvd.fooddelivery.repository.mappers.OrderMapper;
 
 import java.sql.*;
@@ -11,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class OrderRepositoryImpl implements CrudRepository<Order, Long> {
+public class OrderRepositoryImpl implements OrderRepository, CrudRepository<Order, Long> {
 
     private static final ConnectionPool CONNECTION_POOL = ConnectionPool.getInstance();
 
@@ -40,6 +44,19 @@ public class OrderRepositoryImpl implements CrudRepository<Order, Long> {
     private static final String FIND_ORDERS_BY_FS_ID_QUERY =
             "SELECT id, order_number, total_price, take_address, bring_address, finished, order_date_time, " +
                     "courier_id, customer_id, food_spot_id, delivery_instructions FROM orders WHERE food_spot_id = ?";
+
+    private static final String FIND_FINISHED_ORDERS =
+            "SELECT id, order_number, total_price, take_address, bring_address, finished, " +
+                    "order_date_time, courier_id, customer_id, delivery_instructions " +
+                    "FROM orders WHERE finished = TRUE";
+
+    private static final String FIND_UNFINISHED_ORDERS =
+            "SELECT id, order_number, total_price, take_address, bring_address, finished, " +
+                    "order_date_time, courier_id, customer_id, delivery_instructions " +
+                    "FROM orders WHERE finished = FALSE";
+
+
+
 
     private final ProductRepositoryImpl productRepositoryImpl = new ProductRepositoryImpl();
     private final CustomerRepositoryImpl customerRepositoryImpl = new CustomerRepositoryImpl();
@@ -186,6 +203,7 @@ public class OrderRepositoryImpl implements CrudRepository<Order, Long> {
         }
     }
 
+    @Override
     public List<Order> findOrdersByFoodSpotId(Long foodSpotId) {
 
         Connection connection = CONNECTION_POOL.getConnection();
@@ -217,6 +235,80 @@ public class OrderRepositoryImpl implements CrudRepository<Order, Long> {
 
         } catch (SQLException exception) {
             throw new RuntimeException(exception);
+        } finally {
+            CONNECTION_POOL.releaseConnection(connection);
+        }
+
+        return orders;
+    }
+
+    @Override
+    public List<Order> findFinishedOrders() {
+
+        Connection connection = CONNECTION_POOL.getConnection();
+        List<Order> orders = new ArrayList<>();
+
+        try (PreparedStatement statement = connection.prepareStatement(FIND_FINISHED_ORDERS)) {
+
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+
+                Order order = OrderMapper.mapToOrder(rs, "");
+
+                order.setCustomer(customerRepositoryImpl
+                        .findById(rs.getLong("customer_id"))
+                        .orElse(null));
+
+                order.setCourier(courierRepositoryImpl
+                        .findById(rs.getLong("courier_id"))
+                        .orElse(null));
+
+                order.setProducts(productRepositoryImpl
+                        .findProductsByIds(findProductIds(order.getId())));
+
+                orders.add(order);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            CONNECTION_POOL.releaseConnection(connection);
+        }
+
+        return orders;
+    }
+
+    @Override
+    public List<Order> findUnfinishedOrders() {
+
+        Connection connection = CONNECTION_POOL.getConnection();
+        List<Order> orders = new ArrayList<>();
+
+        try (PreparedStatement statement = connection.prepareStatement(FIND_UNFINISHED_ORDERS)) {
+
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+
+                Order order = OrderMapper.mapToOrder(rs, "");
+
+                order.setCustomer(customerRepositoryImpl
+                        .findById(rs.getLong("customer_id"))
+                        .orElse(null));
+
+                order.setCourier(courierRepositoryImpl
+                        .findById(rs.getLong("courier_id"))
+                        .orElse(null));
+
+                order.setProducts(productRepositoryImpl
+                        .findProductsByIds(findProductIds(order.getId())));
+
+                orders.add(order);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         } finally {
             CONNECTION_POOL.releaseConnection(connection);
         }
