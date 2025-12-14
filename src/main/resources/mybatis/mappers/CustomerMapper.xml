@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.fooddelivery.repository.mybatis.dao.CustomerDao">
+
+    <resultMap id="CustomerResultMap"
+               type="com.solvd.fooddelivery.entity.human.Customer">
+        <id property="id" column="customer_id"/>
+        <result property="name" column="customer_name"/>
+        <result property="surname" column="customer_surname"/>
+        <result property="phoneNumber" column="customer_phone"/>
+        <result property="email" column="customer_email"/>
+        <result property="balance" column="balance"/>
+        <result property="subscription" column="subscription"/>
+    </resultMap>
+
+    <insert id="create" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO customers
+        (name, surname, phone_number, email, balance, subscription)
+        VALUES
+        (#{name},
+        #{surname},
+        #{phoneNumber},
+        #{email},
+        #{balance},
+        #{subscription})
+    </insert>
+
+    <select id="findById" resultMap="CustomerResultMap">
+        SELECT
+        id AS customer_id,
+        name AS customer_name,
+        surname AS customer_surname,
+        phone_number AS customer_phone,
+        email AS customer_email,
+        balance,
+        subscription
+        FROM customers
+        WHERE id = #{id}
+    </select>
+
+    <select id="findAll" resultMap="CustomerResultMap">
+        SELECT
+        id AS customer_id,
+        name AS customer_name,
+        surname AS customer_surname,
+        phone_number AS customer_phone,
+        email AS customer_email,
+        balance,
+        subscription
+        FROM customers
+    </select>
+
+    <select id="findByEmail" resultMap="CustomerResultMap">
+        SELECT
+        id AS customer_id,
+        name AS customer_name,
+        surname AS customer_surname,
+        phone_number AS customer_phone,
+        email AS customer_email,
+        balance,
+        subscription
+        FROM customers
+        WHERE email = #{email}
+    </select>
+
+    <select id="findByPhoneNumber" resultMap="CustomerResultMap">
+        SELECT
+        id AS customer_id,
+        name AS customer_name,
+        surname AS customer_surname,
+        phone_number AS customer_phone,
+        email AS customer_email,
+        balance,
+        subscription
+        FROM customers
+        WHERE phone_number = #{phoneNumber}
+    </select>
+
+    <update id="update">
+        UPDATE customers
+        SET name = #{name},
+        surname = #{surname},
+        phone_number = #{phoneNumber},
+        email = #{email},
+        balance = #{balance},
+        subscription = #{subscription}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM customers WHERE id = #{id}
+    </delete>
+
+</mapper>

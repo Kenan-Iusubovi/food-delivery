@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.fooddelivery.repository.mybatis.dao.FoodSpotOwnerDao">
+
+    <resultMap id="FoodSpotOwnerResultMap"
+               type="com.solvd.fooddelivery.entity.human.FoodSpotOwner">
+        <id property="id" column="owner_id"/>
+        <result property="name" column="owner_name"/>
+        <result property="surname" column="owner_surname"/>
+        <result property="phoneNumber" column="owner_phone"/>
+        <result property="email" column="owner_email"/>
+        <result property="businessLicense" column="business_license"/>
+    </resultMap>
+
+    <insert id="create" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO food_spot_owners
+        (name, surname, phone_number, email, business_license)
+        VALUES
+        (#{name}, #{surname}, #{phoneNumber}, #{email}, #{businessLicense})
+    </insert>
+
+    <select id="findById" resultMap="FoodSpotOwnerResultMap">
+        SELECT
+        id AS owner_id,
+        name AS owner_name,
+        surname AS owner_surname,
+        phone_number AS owner_phone,
+        email AS owner_email,
+        business_license
+        FROM food_spot_owners
+        WHERE id = #{id}
+    </select>
+
+    <select id="findAll" resultMap="FoodSpotOwnerResultMap">
+        SELECT
+        id AS owner_id,
+        name AS owner_name,
+        surname AS owner_surname,
+        phone_number AS owner_phone,
+        email AS owner_email,
+        business_license
+        FROM food_spot_owners
+    </select>
+
+    <select id="findByEmail" resultMap="FoodSpotOwnerResultMap">
+        SELECT
+        id AS owner_id,
+        name AS owner_name,
+        surname AS owner_surname,
+        phone_number AS owner_phone,
+        email AS owner_email,
+        business_license
+        FROM food_spot_owners
+        WHERE email = #{email}
+    </select>
+
+    <select id="findByPhoneNumber" resultMap="FoodSpotOwnerResultMap">
+        SELECT
+        id AS owner_id,
+        name AS owner_name,
+        surname AS owner_surname,
+        phone_number AS owner_phone,
+        email AS owner_email,
+        business_license
+        FROM food_spot_owners
+        WHERE phone_number = #{phoneNumber}
+    </select>
+
+    <update id="update">
+        UPDATE food_spot_owners
+        SET name = #{name},
+        surname = #{surname},
+        phone_number = #{phoneNumber},
+        email = #{email},
+        business_license = #{businessLicense}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM food_spot_owners WHERE id = #{id}
+    </delete>
+
+</mapper>

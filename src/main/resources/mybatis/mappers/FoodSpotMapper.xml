@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.fooddelivery.repository.mybatis.dao.FoodSpotDao">
+
+    <resultMap id="FoodSpotResultMap"
+               type="com.solvd.fooddelivery.entity.foodspot.FoodSpot">
+
+        <id property="id" column="foodspot_id"/>
+        <result property="name" column="foodspot_name"/>
+        <result property="address" column="foodspot_address"/>
+        <result property="phoneNumber" column="foodspot_phone"/>
+        <result property="openingTime" column="opening_time"/>
+        <result property="closingTime" column="closing_time"/>
+
+        <association property="owner"
+                     javaType="com.solvd.fooddelivery.entity.human.FoodSpotOwner">
+            <id property="id" column="owner_id"/>
+            <result property="name" column="owner_name"/>
+            <result property="surname" column="owner_surname"/>
+            <result property="phoneNumber" column="owner_phone"/>
+            <result property="email" column="owner_email"/>
+            <result property="businessLicense" column="business_license"/>
+        </association>
+
+    </resultMap>
+
+    <insert id="create" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO food_spots
+        (
+        name,
+        address,
+        phone_number,
+        opening_time,
+        closing_time,
+        food_spot_owner_id
+        )
+        VALUES
+        (
+        #{name},
+        #{address},
+        #{phoneNumber},
+        #{openingTime},
+        #{closingTime},
+        #{owner.id}
+        )
+    </insert>
+
+    <select id="findById" resultMap="FoodSpotResultMap">
+        SELECT
+        fs.id            AS foodspot_id,
+        fs.name          AS foodspot_name,
+        fs.address       AS foodspot_address,
+        fs.phone_number  AS foodspot_phone,
+        fs.opening_time,
+        fs.closing_time,
+
+        o.id             AS owner_id,
+        o.name           AS owner_name,
+        o.surname        AS owner_surname,
+        o.phone_number   AS owner_phone,
+        o.email          AS owner_email,
+        o.business_license
+        FROM food_spots fs
+        JOIN food_spot_owners o
+        ON fs.food_spot_owner_id = o.id
+        WHERE fs.id = #{id}
+    </select>
+
+    <select id="findAll" resultMap="FoodSpotResultMap">
+        SELECT
+        fs.id            AS foodspot_id,
+        fs.name          AS foodspot_name,
+        fs.address       AS foodspot_address,
+        fs.phone_number  AS foodspot_phone,
+        fs.opening_time,
+        fs.closing_time,
+
+        o.id             AS owner_id,
+        o.name           AS owner_name,
+        o.surname        AS owner_surname,
+        o.phone_number   AS owner_phone,
+        o.email          AS owner_email,
+        o.business_license
+        FROM food_spots fs
+        JOIN food_spot_owners o
+        ON fs.food_spot_owner_id = o.id
+    </select>
+
+    <update id="update">
+        UPDATE food_spots
+        SET
+        name = #{name},
+        address = #{address},
+        phone_number = #{phoneNumber},
+        opening_time = #{openingTime},
+        closing_time = #{closingTime},
+        food_spot_owner_id = #{owner.id}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM food_spots WHERE id = #{id}
+    </delete>
+
+</mapper>

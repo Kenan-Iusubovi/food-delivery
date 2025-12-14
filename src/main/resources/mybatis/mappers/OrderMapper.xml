@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.fooddelivery.repository.mybatis.dao.OrderDao">
+
+    <resultMap id="OrderResultMap"
+               type="com.solvd.fooddelivery.entity.order.Order">
+
+        <id property="id" column="order_id"/>
+        <result property="orderNumber" column="order_number"
+                javaType="java.util.UUID"/>
+        <result property="totalPrice" column="total_price"/>
+        <result property="takeAddress" column="take_address"/>
+        <result property="bringAddress" column="bring_address"/>
+        <result property="finished" column="finished"/>
+        <result property="orderDateTime" column="order_date_time"/>
+
+        <association property="foodSpot"
+                     javaType="com.solvd.fooddelivery.entity.foodspot.FoodSpot">
+            <id property="id" column="food_spot_id"/>
+            <result property="name" column="food_spot_name"/>
+            <result property="address" column="food_spot_address"/>
+            <result property="phoneNumber" column="food_spot_phone"/>
+        </association>
+
+        <association property="courier"
+                     javaType="com.solvd.fooddelivery.entity.human.courier.Courier">
+            <id property="id" column="courier_id"/>
+            <result property="name" column="courier_name"/>
+            <result property="surname" column="courier_surname"/>
+            <result property="phoneNumber" column="courier_phone"/>
+            <result property="email" column="courier_email"/>
+            <result property="licenseNumber" column="courier_license"/>
+        </association>
+
+        <association property="customer"
+                     javaType="com.solvd.fooddelivery.entity.human.Customer">
+            <id property="id" column="customer_id"/>
+            <result property="name" column="customer_name"/>
+            <result property="surname" column="customer_surname"/>
+            <result property="phoneNumber" column="customer_phone"/>
+            <result property="email" column="customer_email"/>
+            <result property="balance" column="balance"/>
+            <result property="subscription" column="subscription"/>
+        </association>
+
+        <collection property="products"
+                    ofType="com.solvd.fooddelivery.entity.foodspot.Product">
+            <id property="id" column="product_id"/>
+            <result property="name" column="product_name"/>
+            <result property="price" column="product_price"/>
+        </collection>
+
+    </resultMap>
+
+    <insert id="create" parameterType="com.solvd.fooddelivery.entity.order.Order"
+            useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO orders
+        (order_number,
+        courier_id,
+        customer_id,
+        food_spot_id,
+        total_price,
+        take_address,
+        bring_address,
+        finished,
+        order_date_time)
+        VALUES
+        (#{orderNumber},
+        #{courier.id},
+        #{customer.id},
+        #{foodSpot.id},
+        #{totalPrice},
+        #{takeAddress},
+        #{bringAddress},
+        #{finished},
+        #{orderDateTime})
+    </insert>
+
+    <select id="findById" resultMap="OrderResultMap">
+        SELECT
+        o.id AS order_id,
+        o.order_number,
+        o.total_price,
+        o.take_address,
+        o.bring_address,
+        o.finished,
+        o.order_date_time,
+
+        fs.id AS food_spot_id,
+        fs.name AS food_spot_name,
+        fs.address AS food_spot_address,
+        fs.phone_number AS food_spot_phone,
+
+        c.id AS courier_id,
+        c.name AS courier_name,
+        c.surname AS courier_surname,
+        c.phone_number AS courier_phone,
+        c.email AS courier_email,
+        c.license_number AS courier_license,
+
+        cu.id AS customer_id,
+        cu.name AS customer_name,
+        cu.surname AS customer_surname,
+        cu.phone_number AS customer_phone,
+        cu.email AS customer_email,
+        cu.balance,
+        cu.subscription,
+
+        p.id AS product_id,
+        p.name AS product_name,
+        p.price AS product_price
+        FROM orders o
+        JOIN food_spots fs ON o.food_spot_id = fs.id
+        JOIN couriers c ON o.courier_id = c.id
+        JOIN customers cu ON o.customer_id = cu.id
+        LEFT JOIN products_has_orders pho ON o.id = pho.order_id
+        LEFT JOIN products p ON pho.product_id = p.id
+        WHERE o.id = #{id}
+    </select>
+
+    <select id="findAll" resultMap="OrderResultMap">
+        SELECT
+        o.id AS order_id,
+        o.order_number,
+        o.total_price,
+        o.take_address,
+        o.bring_address,
+        o.finished,
+        o.order_date_time,
+
+        fs.id AS food_spot_id,
+        fs.name AS food_spot_name,
+        fs.address AS food_spot_address,
+        fs.phone_number AS food_spot_phone,
+
+        c.id AS courier_id,
+        c.name AS courier_name,
+        c.surname AS courier_surname,
+        c.phone_number AS courier_phone,
+        c.email AS courier_email,
+        c.license_number AS courier_license,
+
+        cu.id AS customer_id,
+        cu.name AS customer_name,
+        cu.surname AS customer_surname,
+        cu.phone_number AS customer_phone,
+        cu.email AS customer_email,
+        cu.balance,
+        cu.subscription,
+
+        p.id AS product_id,
+        p.name AS product_name,
+        p.price AS product_price
+        FROM orders o
+        JOIN food_spots fs ON o.food_spot_id = fs.id
+        JOIN couriers c ON o.courier_id = c.id
+        JOIN customers cu ON o.customer_id = cu.id
+        LEFT JOIN products_has_orders pho ON o.id = pho.order_id
+        LEFT JOIN products p ON pho.product_id = p.id
+        ORDER BY o.id
+    </select>
+
+    <update id="update">
+        UPDATE orders
+        SET courier_id = #{courier.id},
+        customer_id = #{customer.id},
+        food_spot_id = #{foodSpot.id},
+        total_price = #{totalPrice},
+        take_address = #{takeAddress},
+        bring_address = #{bringAddress},
+        finished = #{finished}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM orders WHERE id = #{id}
+    </delete>
+
+</mapper>

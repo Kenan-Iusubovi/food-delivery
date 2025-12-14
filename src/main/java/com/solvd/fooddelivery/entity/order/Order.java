@@ -2,6 +2,7 @@ package com.solvd.fooddelivery.entity.order;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.solvd.fooddelivery.entity.ProductContainer;
+import com.solvd.fooddelivery.entity.foodspot.FoodSpot;
 import com.solvd.fooddelivery.entity.foodspot.Product;
 import com.solvd.fooddelivery.entity.human.Customer;
 import com.solvd.fooddelivery.entity.human.courier.Courier;
@@ -33,6 +34,7 @@ public class Order implements ProductContainer {
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime orderDateTime;
     private Customer customer;
+    private FoodSpot foodSpot;
 
     public Long getId() {
         return id;
@@ -113,5 +115,13 @@ public class Order implements ProductContainer {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public FoodSpot getFoodSpot() {
+        return foodSpot;
+    }
+
+    public void setFoodSpot(FoodSpot foodSpot) {
+        this.foodSpot = foodSpot;
     }
 }
