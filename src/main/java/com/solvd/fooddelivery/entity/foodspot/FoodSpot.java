@@ -2,6 +2,7 @@ package com.solvd.fooddelivery.entity.foodspot;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.solvd.fooddelivery.entity.human.FoodSpotOwner;
 import com.solvd.fooddelivery.entity.order.Order;
 import com.solvd.fooddelivery.utils.parsers.jaxbframework.adapter.LocalTimeAdapter;
 import jakarta.xml.bind.annotation.*;
@@ -28,6 +29,8 @@ public class FoodSpot {
     @XmlJavaTypeAdapter(LocalTimeAdapter.class)
     @JsonFormat(pattern = "HH:mm:ss")
     private LocalTime closingTime;
+    @XmlTransient
+    private FoodSpotOwner owner;
     @XmlElementWrapper
     @XmlElement(name = "order")
     private List<Order> orders;
@@ -94,6 +97,14 @@ public class FoodSpot {
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;
+    }
+
+    public FoodSpotOwner getOwner() {
+        return owner;
+    }
+
+    public void setOwner(FoodSpotOwner owner) {
+        this.owner = owner;
     }
 }
 

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.fooddelivery.repository.mybatis.dao.CourierDao">
+
+    <resultMap id="CourierResultMap"
+               type="com.solvd.fooddelivery.entity.human.courier.Courier">
+
+        <id property="id" column="courier_id"/>
+        <result property="name" column="courier_name"/>
+        <result property="surname" column="courier_surname"/>
+        <result property="phoneNumber" column="courier_phone"/>
+        <result property="email" column="courier_email"/>
+        <result property="licenseNumber" column="courier_license"/>
+
+        <association property="workingExperience"
+                     javaType="com.solvd.fooddelivery.entity.human.courier.WorkingExperience">
+            <result property="years" column="years"/>
+            <result property="months" column="months"/>
+            <result property="days" column="days"/>
+        </association>
+
+    </resultMap>
+
+    <insert id="create" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO couriers
+        (name, surname, phone_number, email, license_number, years, months, days)
+        VALUES
+        (#{name},
+        #{surname},
+        #{phoneNumber},
+        #{email},
+        #{licenseNumber},
+        #{workingExperience.years},
+        #{workingExperience.months},
+        #{workingExperience.days})
+    </insert>
+
+    <select id="findById" resultMap="CourierResultMap">
+        SELECT
+        id AS courier_id,
+        name AS courier_name,
+        surname AS courier_surname,
+        phone_number AS courier_phone,
+        email AS courier_email,
+        license_number AS courier_license,
+        years,
+        months,
+        days
+        FROM couriers
+        WHERE id = #{id}
+    </select>
+
+    <select id="findAll" resultMap="CourierResultMap">
+        SELECT
+        id AS courier_id,
+        name AS courier_name,
+        surname AS courier_surname,
+        phone_number AS courier_phone,
+        email AS courier_email,
+        license_number AS courier_license,
+        years,
+        months,
+        days
+        FROM couriers
+    </select>
+
+    <select id="findByEmail" resultMap="CourierResultMap">
+        SELECT
+        id AS courier_id,
+        name AS courier_name,
+        surname AS courier_surname,
+        phone_number AS courier_phone,
+        email AS courier_email,
+        license_number AS courier_license,
+        years,
+        months,
+        days
+        FROM couriers
+        WHERE email = #{email}
+    </select>
+
+    <select id="findByLicenseNumber" resultMap="CourierResultMap">
+        SELECT
+        id AS courier_id,
+        name AS courier_name,
+        surname AS courier_surname,
+        phone_number AS courier_phone,
+        email AS courier_email,
+        license_number AS courier_license,
+        years,
+        months,
+        days
+        FROM couriers
+        WHERE license_number = #{licenseNumber}
+    </select>
+
+    <update id="update">
+        UPDATE couriers
+        SET name = #{name},
+        surname = #{surname},
+        phone_number = #{phoneNumber},
+        email = #{email},
+        license_number = #{licenseNumber},
+        years = #{workingExperience.years},
+        months = #{workingExperience.months},
+        days = #{workingExperience.days}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM couriers WHERE id = #{id}
+    </delete>
+
+</mapper>

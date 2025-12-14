@@ -12,6 +12,15 @@ public class WorkingExperience {
     private int months;
     private int days;
 
+    public WorkingExperience() {
+    }
+
+    public WorkingExperience(int years, int months, int days) {
+        this.years = years;
+        this.months = months;
+        this.days = days;
+    }
+
     public void addDays(int days) {
         this.days += days;
         normalize();

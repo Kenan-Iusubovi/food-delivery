@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.fooddelivery.repository.mybatis.dao.FoodSpotMenuDao">
+
+    <insert id="link">
+        INSERT INTO food_spots_has_menus (food_spot_id, menu_id)
+        VALUES (#{foodSpotId}, #{menuId})
+    </insert>
+
+    <delete id="unlink">
+        DELETE FROM food_spots_has_menus
+        WHERE food_spot_id = #{foodSpotId}
+          AND menu_id = #{menuId}
+    </delete>
+
+    <delete id="unlinkByFoodSpotId">
+        DELETE FROM food_spots_has_menus
+        WHERE food_spot_id = #{foodSpotId}
+    </delete>
+
+    <delete id="unlinkByMenuId">
+        DELETE FROM food_spots_has_menus
+        WHERE menu_id = #{menuId}
+    </delete>
+
+</mapper>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.fooddelivery.repository.mybatis.dao.ProductDao">
+
+    <sql id="ProductColumns">
+        p.id          AS product_id,
+        p.name        AS product_name,
+        p.price       AS product_price,
+        p.description AS product_description,
+        p.available   AS product_available
+    </sql>
+
+    <resultMap id="ProductResultMap" type="com.solvd.fooddelivery.entity.foodspot.Product">
+        <id property="id" column="product_id"/>
+        <result property="name" column="product_name"/>
+        <result property="price" column="product_price"/>
+        <result property="description" column="product_description"/>
+        <result property="available" column="product_available"/>
+    </resultMap>
+
+    <insert id="create" parameterType="com.solvd.fooddelivery.entity.foodspot.Product"
+            useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO products (name, price, description, available)
+        VALUES (#{name}, #{price}, #{description}, #{available})
+    </insert>
+
+    <select id="findById" parameterType="long" resultMap="ProductResultMap">
+        SELECT
+        <include refid="ProductColumns"/>
+        FROM products p
+        WHERE p.id = #{id}
+    </select>
+
+    <select id="findAll" resultMap="ProductResultMap">
+        SELECT
+        <include refid="ProductColumns"/>
+        FROM products p
+        ORDER BY p.id
+    </select>
+
+    <update id="update" parameterType="com.solvd.fooddelivery.entity.foodspot.Product">
+        UPDATE products
+        SET
+        name = #{name},
+        price = #{price},
+        description = #{description},
+        available = #{available}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="long">
+        DELETE FROM products WHERE id = #{id}
+    </delete>
+
+    <select id="findAllByMenuId" parameterType="long" resultMap="ProductResultMap">
+        SELECT
+        <include refid="ProductColumns"/>
+        FROM products p
+        INNER JOIN menu_products mp ON mp.product_id = p.id
+        WHERE mp.menu_id = #{menuId}
+        ORDER BY p.id
+    </select>
+
+    <select id="findAllByFoodSpotId" parameterType="long" resultMap="ProductResultMap">
+        SELECT
+        <include refid="ProductColumns"/>
+        FROM products p
+        INNER JOIN menu_products mp ON mp.product_id = p.id
+        INNER JOIN food_spot_menus fsm ON fsm.menu_id = mp.menu_id
+        WHERE fsm.food_spot_id = #{foodSpotId}
+        ORDER BY p.id
+    </select>
+
+</mapper>
