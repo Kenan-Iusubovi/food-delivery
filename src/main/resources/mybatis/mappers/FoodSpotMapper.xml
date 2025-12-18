@@ -6,7 +6,8 @@
 <mapper namespace="com.solvd.fooddelivery.repository.mybatis.dao.FoodSpotDao">
 
     <resultMap id="FoodSpotResultMap"
-               type="com.solvd.fooddelivery.entity.foodspot.FoodSpot">
+               type="com.solvd.fooddelivery.entity.foodspot.FoodSpot"
+               autoMapping="false">
 
         <id property="id" column="foodspot_id"/>
         <result property="name" column="foodspot_name"/>
@@ -50,18 +51,18 @@
 
     <select id="findById" resultMap="FoodSpotResultMap">
         SELECT
-        fs.id            AS foodspot_id,
-        fs.name          AS foodspot_name,
-        fs.address       AS foodspot_address,
-        fs.phone_number  AS foodspot_phone,
+        fs.id AS foodspot_id,
+        fs.name AS foodspot_name,
+        fs.address AS foodspot_address,
+        fs.phone_number AS foodspot_phone,
         fs.opening_time,
         fs.closing_time,
 
-        o.id             AS owner_id,
-        o.name           AS owner_name,
-        o.surname        AS owner_surname,
-        o.phone_number   AS owner_phone,
-        o.email          AS owner_email,
+        o.id AS owner_id,
+        o.name AS owner_name,
+        o.surname AS owner_surname,
+        o.phone_number AS owner_phone,
+        o.email AS owner_email,
         o.business_license
         FROM food_spots fs
         JOIN food_spot_owners o
@@ -71,18 +72,18 @@
 
     <select id="findAll" resultMap="FoodSpotResultMap">
         SELECT
-        fs.id            AS foodspot_id,
-        fs.name          AS foodspot_name,
-        fs.address       AS foodspot_address,
-        fs.phone_number  AS foodspot_phone,
+        fs.id AS foodspot_id,
+        fs.name AS foodspot_name,
+        fs.address AS foodspot_address,
+        fs.phone_number AS foodspot_phone,
         fs.opening_time,
         fs.closing_time,
 
-        o.id             AS owner_id,
-        o.name           AS owner_name,
-        o.surname        AS owner_surname,
-        o.phone_number   AS owner_phone,
-        o.email          AS owner_email,
+        o.id AS owner_id,
+        o.name AS owner_name,
+        o.surname AS owner_surname,
+        o.phone_number AS owner_phone,
+        o.email AS owner_email,
         o.business_license
         FROM food_spots fs
         JOIN food_spot_owners o

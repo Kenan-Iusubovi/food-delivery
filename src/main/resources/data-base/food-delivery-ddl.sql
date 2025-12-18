@@ -1,6 +1,9 @@
-DROP DATABASE IF EXISTS food_delivery;
-CREATE DATABASE food_delivery CHARACTER SET utf8;
-USE food_delivery;
+DROP
+DATABASE IF EXISTS food_delivery;
+CREATE
+DATABASE food_delivery CHARACTER SET utf8;
+USE
+food_delivery;
 
 CREATE TABLE food_spot_owners
 (

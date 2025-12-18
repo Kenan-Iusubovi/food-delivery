@@ -1,13 +1,10 @@
 package com.solvd.fooddelivery.repository.impl;
 
-import com.solvd.fooddelivery.entity.order.Order;
 import com.solvd.fooddelivery.entity.foodspot.Product;
+import com.solvd.fooddelivery.entity.order.Order;
 import com.solvd.fooddelivery.repository.CrudRepository;
 import com.solvd.fooddelivery.repository.OrderRepository;
 import com.solvd.fooddelivery.repository.connection.ConnectionPool;
-import com.solvd.fooddelivery.repository.mappers.CourierMapper;
-import com.solvd.fooddelivery.repository.mappers.CustomerMapper;
-import com.solvd.fooddelivery.repository.mappers.FoodSpotMapper;
 import com.solvd.fooddelivery.repository.mappers.OrderMapper;
 
 import java.sql.*;
@@ -54,8 +51,6 @@ public class OrderRepositoryImpl implements OrderRepository, CrudRepository<Orde
             "SELECT id, order_number, total_price, take_address, bring_address, finished, " +
                     "order_date_time, courier_id, customer_id, delivery_instructions " +
                     "FROM orders WHERE finished = FALSE";
-
-
 
 
     private final ProductRepositoryImpl productRepositoryImpl = new ProductRepositoryImpl();

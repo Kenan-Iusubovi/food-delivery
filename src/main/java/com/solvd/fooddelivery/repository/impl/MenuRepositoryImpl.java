@@ -7,7 +7,10 @@ import com.solvd.fooddelivery.repository.MenuRepository;
 import com.solvd.fooddelivery.repository.connection.ConnectionPool;
 import com.solvd.fooddelivery.repository.mappers.MenuMapper;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -216,7 +219,7 @@ public class MenuRepositoryImpl implements MenuRepository, CrudRepository<Menu, 
             CONNECTION_POOL.releaseConnection(connection);
         }
     }
-    
+
     private List<Long> findProductIds(Long menuId) {
 
         Connection connection = CONNECTION_POOL.getConnection();

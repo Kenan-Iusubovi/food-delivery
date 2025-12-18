@@ -1,4 +1,5 @@
-USE food_delivery;
+USE
+food_delivery;
 
 -- ============================
 -- INSERTS
@@ -10,8 +11,10 @@ VALUES ('Michael', 'Owner', '555-000', 'owner@example.com', 'OWN-001');
 INSERT INTO food_spots (name, address, phone, opening_time, closing_time, food_spot_owner_id)
 VALUES ('Burger House', '12 Main St', '555-444', '08:00:00', '22:00:00', 1);
 
-INSERT INTO menus (name, food_spot_id) VALUES ('Breakfast Menu', 1);
-INSERT INTO menus (name, food_spot_id) VALUES ('Lunch Menu', 1);
+INSERT INTO menus (name, food_spot_id)
+VALUES ('Breakfast Menu', 1);
+INSERT INTO menus (name, food_spot_id)
+VALUES ('Lunch Menu', 1);
 
 INSERT INTO products (name, price, description, available)
 VALUES ('Cheeseburger', 8.99, 'Classic cheeseburger', 1);
@@ -39,56 +42,110 @@ INSERT INTO orders (order_number, total_price, take_address, bring_address, fini
 VALUES ('ORD-001', 21.49, '12 Main St', '45 River Rd', 0,
         '2025-11-28 12:00:00', 1, 1, 1);
 
-INSERT INTO menus_has_products VALUES (1, 1), (1, 4), (2, 2), (2, 3);
-INSERT INTO products_has_orders VALUES (1, 1), (2, 1);
+INSERT INTO menus_has_products
+VALUES (1, 1),
+       (1, 4),
+       (2, 2),
+       (2, 3);
+INSERT INTO products_has_orders
+VALUES (1, 1),
+       (2, 1);
 
 -- ============================
 -- UPDATES
 -- ============================
 
-UPDATE customers SET balance = balance + 20 WHERE email = 'john@example.com';
-UPDATE products SET price = 9.50 WHERE name = 'Cheeseburger';
-UPDATE couriers SET phone_number = '555-777' WHERE id = 1;
-UPDATE menus SET name = 'Brunch Menu' WHERE id = 1;
-UPDATE food_spots SET closing_time = '23:00:00' WHERE id = 1;
-UPDATE orders SET finished = 1 WHERE id = 1;
-UPDATE products SET available = 0 WHERE name = 'Latte';
-UPDATE customers SET subscription = 1 WHERE id = 2;
-UPDATE couriers SET years = years + 1 WHERE id = 1;
-UPDATE food_spot_owners SET business_license = 'NEWLIC543' WHERE id = 1;
+UPDATE customers
+SET balance = balance + 20
+WHERE email = 'john@example.com';
+UPDATE products
+SET price = 9.50
+WHERE name = 'Cheeseburger';
+UPDATE couriers
+SET phone_number = '555-777'
+WHERE id = 1;
+UPDATE menus
+SET name = 'Brunch Menu'
+WHERE id = 1;
+UPDATE food_spots
+SET closing_time = '23:00:00'
+WHERE id = 1;
+UPDATE orders
+SET finished = 1
+WHERE id = 1;
+UPDATE products
+SET available = 0
+WHERE name = 'Latte';
+UPDATE customers
+SET subscription = 1
+WHERE id = 2;
+UPDATE couriers
+SET years = years + 1
+WHERE id = 1;
+UPDATE food_spot_owners
+SET business_license = 'NEWLIC543'
+WHERE id = 1;
 
 -- ============================
 -- SAFE DELETE ORDER (NO FK ERRORS)
 -- ============================
 
-DELETE FROM products_has_orders WHERE order_id = 1;
-DELETE FROM menus_has_products WHERE menu_id = 1;
+DELETE
+FROM products_has_orders
+WHERE order_id = 1;
+DELETE
+FROM menus_has_products
+WHERE menu_id = 1;
 
-DELETE FROM orders WHERE id = 1;
+DELETE
+FROM orders
+WHERE id = 1;
 
-DELETE FROM menus WHERE id = 2;
-DELETE FROM menus WHERE id = 1;
+DELETE
+FROM menus
+WHERE id = 2;
+DELETE
+FROM menus
+WHERE id = 1;
 
-DELETE FROM food_spots WHERE id = 1;
+DELETE
+FROM food_spots
+WHERE id = 1;
 
-DELETE FROM food_spot_owners WHERE id = 1;
+DELETE
+FROM food_spot_owners
+WHERE id = 1;
 
-DELETE FROM products WHERE id = 3;
-DELETE FROM products WHERE name = 'Latte';
+DELETE
+FROM products
+WHERE id = 3;
+DELETE
+FROM products
+WHERE name = 'Latte';
 
-DELETE FROM customers WHERE email = 'emily@example.com';
-DELETE FROM customers WHERE id = 1;
+DELETE
+FROM customers
+WHERE email = 'emily@example.com';
+DELETE
+FROM customers
+WHERE id = 1;
 
-DELETE FROM couriers WHERE license_number = 'LIC1023';
+DELETE
+FROM couriers
+WHERE license_number = 'LIC1023';
 
 -- ============================
 -- SELECTS
 -- ============================
 
-SELECT o.id AS order_id, o.order_number,
-       c.name AS customer_name, cu.name AS courier_name,
-       p.name AS product_name, fs.name AS food_spot_name,
-       fso.name AS owner_name, m.name AS menu_name
+SELECT o.id     AS order_id,
+       o.order_number,
+       c.name   AS customer_name,
+       cu.name  AS courier_name,
+       p.name   AS product_name,
+       fs.name  AS food_spot_name,
+       fso.name AS owner_name,
+       m.name   AS menu_name
 FROM orders o
          JOIN customers c ON o.customer_id = c.id
          JOIN couriers cu ON o.courier_id = cu.id
@@ -138,15 +195,29 @@ FROM orders o
          JOIN products_has_orders pho ON pho.order_id = o.id
 GROUP BY pho.product_id;
 
-SELECT subscription, COUNT(*) FROM customers GROUP BY subscription;
-SELECT available, COUNT(*) FROM products GROUP BY available;
+SELECT subscription, COUNT(*)
+FROM customers
+GROUP BY subscription;
+SELECT available, COUNT(*)
+FROM products
+GROUP BY available;
 
-SELECT YEAR(order_date_time), COUNT(*) FROM orders GROUP BY YEAR(order_date_time);
+SELECT YEAR (order_date_time), COUNT (*)
+FROM orders
+GROUP BY YEAR (order_date_time);
 
-SELECT food_spot_id, COUNT(*) FROM menus GROUP BY food_spot_id;
+SELECT food_spot_id, COUNT(*)
+FROM menus
+GROUP BY food_spot_id;
 
-SELECT customer_id, COUNT(*) FROM orders GROUP BY customer_id HAVING COUNT(*) > 2;
-SELECT courier_id, SUM(total_price) FROM orders GROUP BY courier_id HAVING SUM(total_price) > 100;
+SELECT customer_id, COUNT(*)
+FROM orders
+GROUP BY customer_id
+HAVING COUNT(*) > 2;
+SELECT courier_id, SUM(total_price)
+FROM orders
+GROUP BY courier_id
+HAVING SUM(total_price) > 100;
 
 SELECT pho.product_id, AVG(o.total_price) AS avg_total_price
 FROM orders o
@@ -154,10 +225,22 @@ FROM orders o
 GROUP BY pho.product_id
 HAVING AVG(o.total_price) > 20;
 
-SELECT subscription, COUNT(*) FROM customers GROUP BY subscription HAVING COUNT(*) > 1;
+SELECT subscription, COUNT(*)
+FROM customers
+GROUP BY subscription
+HAVING COUNT(*) > 1;
 
-SELECT available, COUNT(*) FROM products GROUP BY available HAVING COUNT(*) > 2;
+SELECT available, COUNT(*)
+FROM products
+GROUP BY available
+HAVING COUNT(*) > 2;
 
-SELECT food_spot_id, COUNT(*) FROM menus GROUP BY food_spot_id HAVING COUNT(*) > 0;
+SELECT food_spot_id, COUNT(*)
+FROM menus
+GROUP BY food_spot_id
+HAVING COUNT(*) > 0;
 
-SELECT YEAR(order_date_time), COUNT(*) FROM orders GROUP BY YEAR(order_date_time) HAVING COUNT(*) >= 1;
+SELECT YEAR (order_date_time), COUNT (*)
+FROM orders
+GROUP BY YEAR (order_date_time)
+HAVING COUNT (*) >= 1;

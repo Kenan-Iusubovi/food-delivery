@@ -8,7 +8,7 @@
 
     <typeHandlers>
         <typeHandler javaType="java.util.UUID"
-                     handler="com.solvd.fooddelivery.repository.mybatis.typehandler.UUIDTypeHandler" />
+                     handler="com.solvd.fooddelivery.repository.mybatis.typehandler.UUIDTypeHandler"/>
 
     </typeHandlers>
 

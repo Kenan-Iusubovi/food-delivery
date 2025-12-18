@@ -6,7 +6,8 @@
 <mapper namespace="com.solvd.fooddelivery.repository.mybatis.dao.CourierDao">
 
     <resultMap id="CourierResultMap"
-               type="com.solvd.fooddelivery.entity.human.courier.Courier">
+               type="com.solvd.fooddelivery.entity.human.courier.Courier"
+               autoMapping="false">
 
         <id property="id" column="courier_id"/>
         <result property="name" column="courier_name"/>

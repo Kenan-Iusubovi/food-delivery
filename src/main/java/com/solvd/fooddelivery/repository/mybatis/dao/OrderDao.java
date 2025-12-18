@@ -1,6 +1,7 @@
 package com.solvd.fooddelivery.repository.mybatis.dao;
 
 import com.solvd.fooddelivery.entity.order.Order;
+
 import java.util.List;
 
 public interface OrderDao {
