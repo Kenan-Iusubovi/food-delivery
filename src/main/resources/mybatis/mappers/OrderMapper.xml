@@ -6,7 +6,8 @@
 <mapper namespace="com.solvd.fooddelivery.repository.mybatis.dao.OrderDao">
 
     <resultMap id="OrderResultMap"
-               type="com.solvd.fooddelivery.entity.order.Order">
+               type="com.solvd.fooddelivery.entity.order.Order"
+               autoMapping="false">
 
         <id property="id" column="order_id"/>
         <result property="orderNumber" column="order_number"

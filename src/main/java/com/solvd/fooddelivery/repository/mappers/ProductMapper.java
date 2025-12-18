@@ -25,7 +25,7 @@ public class ProductMapper {
 
         List<Product> products = new ArrayList<>();
         while (resultSet.next()) {
-            products.add(mapToProduct(resultSet,""));
+            products.add(mapToProduct(resultSet, ""));
         }
         return products;
     }

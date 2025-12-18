@@ -6,7 +6,8 @@
 <mapper namespace="com.solvd.fooddelivery.repository.mybatis.dao.MenuDao">
 
     <resultMap id="MenuResultMap"
-               type="com.solvd.fooddelivery.entity.foodspot.Menu">
+               type="com.solvd.fooddelivery.entity.foodspot.Menu"
+               autoMapping="false">
         <id property="id" column="menu_id"/>
         <result property="name" column="menu_name"/>
     </resultMap>
@@ -18,7 +19,7 @@
 
     <select id="findById" resultMap="MenuResultMap">
         SELECT
-        id   AS menu_id,
+        id AS menu_id,
         name AS menu_name
         FROM menus
         WHERE id = #{id}
@@ -26,7 +27,7 @@
 
     <select id="findAll" resultMap="MenuResultMap">
         SELECT
-        id   AS menu_id,
+        id AS menu_id,
         name AS menu_name
         FROM menus
     </select>

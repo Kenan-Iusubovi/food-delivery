@@ -28,7 +28,7 @@ public class OrderMapper {
 
         List<Order> orders = new ArrayList<>();
         while (resultSet.next()) {
-            orders.add(mapToOrder(resultSet,""));
+            orders.add(mapToOrder(resultSet, ""));
         }
         return orders;
     }

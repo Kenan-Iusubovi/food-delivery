@@ -1,6 +1,9 @@
 package com.solvd.fooddelivery.service.impl;
 
 import com.solvd.fooddelivery.config.MyBatisSessionFactory;
+import com.solvd.fooddelivery.designpatterns.abstractfactory.DefaultOrderProcessingFactory;
+import com.solvd.fooddelivery.designpatterns.abstractfactory.OrderProcessingFactory;
+import com.solvd.fooddelivery.designpatterns.listener.OrderEventPublisher;
 import com.solvd.fooddelivery.entity.order.Order;
 import com.solvd.fooddelivery.repository.mybatis.dao.OrderDao;
 import com.solvd.fooddelivery.service.OrderService;
@@ -17,6 +20,15 @@ public class OrderServiceImpl implements OrderService {
 
     private static final Logger log = LoggerFactory.getLogger(OrderServiceImpl.class);
 
+    private final OrderProcessingFactory processingFactory = new DefaultOrderProcessingFactory();
+
+    private final OrderEventPublisher eventPublisher;
+
+
+    public OrderServiceImpl(OrderEventPublisher eventPublisher) {
+        this.eventPublisher = eventPublisher;
+    }
+
     @Override
     public Order create(Order order) {
 
@@ -26,6 +38,13 @@ public class OrderServiceImpl implements OrderService {
 
         order.setOrderNumber(UUID.randomUUID());
         order.setFinished(false);
+
+        BigDecimal totalPrice =
+                processingFactory
+                        .createPriceCalculationStrategy(order)
+                        .calculate(order);
+
+        order.setTotalPrice(totalPrice);
 
         try (SqlSession session =
                      MyBatisSessionFactory.getSqlSessionFactory().openSession(false)) {
@@ -40,8 +59,12 @@ public class OrderServiceImpl implements OrderService {
             }
 
             session.commit();
+
+            eventPublisher.notifyOrderCreated(order);
+
             log.info("Order created successfully, id={}, orderNumber={}",
                     order.getId(), order.getOrderNumber());
+
             return order;
 
         } catch (RuntimeException e) {
@@ -49,6 +72,7 @@ public class OrderServiceImpl implements OrderService {
             throw e;
         }
     }
+
 
     @Override
     public Order update(Order order) {
@@ -67,6 +91,16 @@ public class OrderServiceImpl implements OrderService {
 
             OrderDao dao = session.getMapper(OrderDao.class);
 
+            Order existingOrder = dao.findById(order.getId());
+            if (existingOrder == null) {
+                session.rollback();
+                throw new IllegalStateException(
+                        "Order with id " + order.getId() + " does not exist");
+            }
+
+            boolean wasFinished = existingOrder.isFinished();
+            boolean willBeFinished = order.isFinished();
+
             int rows = dao.update(order);
             if (rows != 1) {
                 session.rollback();
@@ -76,8 +110,14 @@ public class OrderServiceImpl implements OrderService {
             }
 
             session.commit();
+
+            if (!wasFinished && willBeFinished) {
+                eventPublisher.notifycationOnFinished(order);
+            }
+
             log.info("Order updated successfully, id={}, finished={}",
                     order.getId(), order.isFinished());
+
             return order;
 
         } catch (RuntimeException e) {
@@ -86,6 +126,7 @@ public class OrderServiceImpl implements OrderService {
             throw e;
         }
     }
+
 
     @Override
     public Optional<Order> findById(Long id) {
@@ -170,11 +211,6 @@ public class OrderServiceImpl implements OrderService {
 
         if (order.getProducts() == null || order.getProducts().isEmpty()) {
             throw new IllegalArgumentException("Order must contain products");
-        }
-
-        if (order.getTotalPrice() == null ||
-                order.getTotalPrice().compareTo(BigDecimal.ZERO) <= 0) {
-            throw new IllegalArgumentException("Order total price must be positive");
         }
 
         if (order.getTakeAddress() == null || order.getTakeAddress().isBlank()) {

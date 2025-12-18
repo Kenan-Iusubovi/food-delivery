@@ -37,7 +37,7 @@ public class CourierRepositoryImpl implements CourierRepository, CrudRepository<
 
     private static final String FIND_BY_LICENSE_NUMBER_QUERY =
             "SELECT id, name, surname, phone_number," +
-            " email, license_number, years, days FROM couriers WHERE license_number = ?";
+                    " email, license_number, years, days FROM couriers WHERE license_number = ?";
 
     private static final String FIND_BY_EXPERIENCE_QUERY =
             "SELECT id, name, surname, phone_number, email, license_number, years, days " +

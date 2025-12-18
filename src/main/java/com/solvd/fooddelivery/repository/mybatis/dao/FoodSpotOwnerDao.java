@@ -1,6 +1,7 @@
 package com.solvd.fooddelivery.repository.mybatis.dao;
 
 import com.solvd.fooddelivery.entity.human.FoodSpotOwner;
+
 import java.util.List;
 
 public interface FoodSpotOwnerDao {

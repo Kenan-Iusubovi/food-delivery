@@ -3,7 +3,6 @@ package com.solvd.fooddelivery.repository.mybatis.dao;
 import com.solvd.fooddelivery.entity.human.courier.Courier;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface CourierDao {
 

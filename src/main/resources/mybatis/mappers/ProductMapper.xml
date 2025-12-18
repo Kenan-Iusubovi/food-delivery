@@ -6,14 +6,16 @@
 <mapper namespace="com.solvd.fooddelivery.repository.mybatis.dao.ProductDao">
 
     <sql id="ProductColumns">
-        p.id          AS product_id,
-        p.name        AS product_name,
-        p.price       AS product_price,
+        p.id AS product_id,
+        p.name AS product_name,
+        p.price AS product_price,
         p.description AS product_description,
-        p.available   AS product_available
+        p.available AS product_available
     </sql>
 
-    <resultMap id="ProductResultMap" type="com.solvd.fooddelivery.entity.foodspot.Product">
+    <resultMap id="ProductResultMap"
+               type="com.solvd.fooddelivery.entity.foodspot.Product"
+               autoMapping="false">
         <id property="id" column="product_id"/>
         <result property="name" column="product_name"/>
         <result property="price" column="product_price"/>

@@ -1,5 +1,14 @@
 package com.solvd.fooddelivery;
 
+
+
+import com.solvd.fooddelivery.designpatterns.builder.DefaultOrderBuilder;
+import com.solvd.fooddelivery.designpatterns.fasade.OrderFacade;
+import com.solvd.fooddelivery.designpatterns.listener.LoggerOrderEventListener;
+import com.solvd.fooddelivery.designpatterns.listener.OrderEventPublisher;
+import com.solvd.fooddelivery.designpatterns.proxy.OrderServiceProxy;
+import com.solvd.fooddelivery.designpatterns.proxy.context.UserContext;
+import com.solvd.fooddelivery.designpatterns.strategy.LoggerNotificationStrateggy;
 import com.solvd.fooddelivery.entity.foodspot.FoodSpot;
 import com.solvd.fooddelivery.entity.foodspot.Menu;
 import com.solvd.fooddelivery.entity.foodspot.Product;
@@ -14,7 +23,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -30,8 +38,31 @@ public class Main {
         ProductService productService = new ProductServiceImpl();
         CourierService courierService = new CourierServiceImpl();
         CustomerService customerService = new CustomerServiceImpl();
-        OrderService orderService = new OrderServiceImpl();
         FoodSpotMenuService foodSpotMenuService = new FoodSpotMenuServiceImpl();
+
+        OrderEventPublisher eventPublisher = new OrderEventPublisher();
+        eventPublisher.register(new LoggerOrderEventListener());
+        eventPublisher.register(
+                new com.solvd.fooddelivery.listener.NotificationOrderEventListener(
+                        new LoggerNotificationStrateggy()
+                )
+        );
+
+        OrderService realOrderService =
+                new OrderServiceImpl(eventPublisher);
+
+        OrderService orderService =
+                new OrderServiceProxy(
+                        realOrderService,
+                        new UserContext(1L, true)
+                );
+
+        OrderFacade orderFacade = new OrderFacade(
+                orderService,
+                productService,
+                customerService,
+                courierService
+        );
 
         Long ownerId = null;
         Long foodSpot1Id = null;
@@ -121,49 +152,73 @@ public class Main {
             customerService.create(customer);
             customerId = customer.getId();
 
-            Order order = new Order();
-            order.setCourier(courier);
-            order.setCustomer(customer);
+            Order order = new DefaultOrderBuilder()
+                    .withCustomer(customer)
+                    .withCourier(courier)
+                    .withFoodSpot(fs1)
+                    .withProducts(List.of(p1, p2))
+                    .withTakeAddress("Burger Point")
+                    .withBringAddress("Customer Home")
+                    .build();
 
-            FoodSpot orderFoodSpot = new FoodSpot();
-            orderFoodSpot.setId(foodSpot1Id);
-            order.setFoodSpot(orderFoodSpot);
-
-            order.setProducts(List.of(p1, p2));
-            order.setTakeAddress("Burger Point");
-            order.setBringAddress("Customer Home");
-            order.setOrderDateTime(LocalDateTime.now());
-            order.setTotalPrice(p1.getPrice().add(p2.getPrice()));
-            orderService.create(order);
+            orderFacade.placeOrder(order);
             orderId = order.getId();
 
             order.setFinished(true);
             orderService.update(order);
 
-            ownerService.findAll();
-            foodSpotService.findAll();
-            menuService.findAll();
-            productService.findAll();
-            courierService.findAll();
-            customerService.findAll();
-            orderService.findAll();
-
         } catch (Exception e) {
             log.error("Execution failed", e);
         } finally {
 
-            try { if (orderId != null) orderService.deleteById(orderId); } catch (Exception ignored) {}
-            try { if (product1Id != null) productService.deleteById(product1Id); } catch (Exception ignored) {}
-            try { if (product2Id != null) productService.deleteById(product2Id); } catch (Exception ignored) {}
-            try { if (foodSpot1Id != null) foodSpotMenuService.removeAllMenusFromFoodSpot(foodSpot1Id); } catch (Exception ignored) {}
-            try { if (foodSpot2Id != null) foodSpotMenuService.removeAllMenusFromFoodSpot(foodSpot2Id); } catch (Exception ignored) {}
-            try { if (menu1Id != null) menuService.deleteById(menu1Id); } catch (Exception ignored) {}
-            try { if (menu2Id != null) menuService.deleteById(menu2Id); } catch (Exception ignored) {}
-            try { if (foodSpot1Id != null) foodSpotService.deleteById(foodSpot1Id); } catch (Exception ignored) {}
-            try { if (foodSpot2Id != null) foodSpotService.deleteById(foodSpot2Id); } catch (Exception ignored) {}
-            try { if (courierId != null) courierService.deleteById(courierId); } catch (Exception ignored) {}
-            try { if (customerId != null) customerService.deleteById(customerId); } catch (Exception ignored) {}
-            try { if (ownerId != null) ownerService.deleteById(ownerId); } catch (Exception ignored) {}
+            try {
+                if (orderId != null) orderService.deleteById(orderId);
+            } catch (Exception ignored) {
+            }
+            try {
+                if (product1Id != null) productService.deleteById(product1Id);
+            } catch (Exception ignored) {
+            }
+            try {
+                if (product2Id != null) productService.deleteById(product2Id);
+            } catch (Exception ignored) {
+            }
+            try {
+                if (foodSpot1Id != null) foodSpotMenuService.removeAllMenusFromFoodSpot(foodSpot1Id);
+            } catch (Exception ignored) {
+            }
+            try {
+                if (foodSpot2Id != null) foodSpotMenuService.removeAllMenusFromFoodSpot(foodSpot2Id);
+            } catch (Exception ignored) {
+            }
+            try {
+                if (menu1Id != null) menuService.deleteById(menu1Id);
+            } catch (Exception ignored) {
+            }
+            try {
+                if (menu2Id != null) menuService.deleteById(menu2Id);
+            } catch (Exception ignored) {
+            }
+            try {
+                if (foodSpot1Id != null) foodSpotService.deleteById(foodSpot1Id);
+            } catch (Exception ignored) {
+            }
+            try {
+                if (foodSpot2Id != null) foodSpotService.deleteById(foodSpot2Id);
+            } catch (Exception ignored) {
+            }
+            try {
+                if (courierId != null) courierService.deleteById(courierId);
+            } catch (Exception ignored) {
+            }
+            try {
+                if (customerId != null) customerService.deleteById(customerId);
+            } catch (Exception ignored) {
+            }
+            try {
+                if (ownerId != null) ownerService.deleteById(ownerId);
+            } catch (Exception ignored) {
+            }
         }
     }
 }

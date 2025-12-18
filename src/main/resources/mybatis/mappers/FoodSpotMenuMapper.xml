@@ -11,18 +11,21 @@
     </insert>
 
     <delete id="unlink">
-        DELETE FROM food_spots_has_menus
+        DELETE
+        FROM food_spots_has_menus
         WHERE food_spot_id = #{foodSpotId}
           AND menu_id = #{menuId}
     </delete>
 
     <delete id="unlinkByFoodSpotId">
-        DELETE FROM food_spots_has_menus
+        DELETE
+        FROM food_spots_has_menus
         WHERE food_spot_id = #{foodSpotId}
     </delete>
 
     <delete id="unlinkByMenuId">
-        DELETE FROM food_spots_has_menus
+        DELETE
+        FROM food_spots_has_menus
         WHERE menu_id = #{menuId}
     </delete>
 
